@@ -55,9 +55,13 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        zoom: {
+          "0%": { transform: "scale(0)" },
+          "100%": { transform: "scale(100%)" },
+        },
         wiggle: {
-          "0%, 100%": { transform: "rotate(20deg)" },
-          "50%": { transform: "rotate(0deg)" },
+          "0%, 100%": { transform: "rotate(12deg)" },
+          "50%": { transform: "rotate(8deg)" },
         },
         "accordion-down": {
           from: { height: "0" },
