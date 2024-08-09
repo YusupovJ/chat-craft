@@ -37,7 +37,7 @@ const me: IUser = users[3];
 const Chat = () => {
   return (
     <main>
-      <Container className="bg-gray-200 min-h-screen px-4 pb-20 pt-5">
+      <Container className="bg-gray-200 h-full px-4 pb-20 pt-5">
         <MessageList messages={messages} me={me} />
         <WriteMessage />
       </Container>
