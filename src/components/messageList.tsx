@@ -10,7 +10,7 @@ interface IProps {
 
 const MessageList: FC<IProps> = ({ messages, me }) => {
   return (
-    <div className="flex flex-col gap-6 py-4">
+    <div className="flex flex-col gap-6 mb-6">
       {messages.map((message) => {
         const isMe = me.id === message.user.id;
 
