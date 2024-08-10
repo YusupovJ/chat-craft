@@ -1,4 +1,4 @@
-import Container from "./container";
+import ChatInfo from "./chatInfo";
 import MessageList from "./messageList";
 import WriteMessage from "./writeMessage";
 
@@ -36,11 +36,10 @@ const me: IUser = users[3];
 
 const Chat = () => {
   return (
-    <main>
-      <Container className="bg-gray-200 h-full px-4 pb-20 pt-5">
-        <MessageList messages={messages} me={me} />
-        <WriteMessage />
-      </Container>
+    <main className="bg-gray-200 h-full px-4 pb-20 pt-5">
+      <ChatInfo />
+      <MessageList messages={messages} me={me} />
+      <WriteMessage />
     </main>
   );
 };
