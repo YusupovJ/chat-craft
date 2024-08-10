@@ -11,7 +11,7 @@ const Message: FC<Props> = ({ className, children, isMe }) => {
   return (
     <div
       className={cn(
-        "bg-white rounded-lg p-3 text-[14px] font-medium shadow-md shadow-gray-300",
+        "bg-white rounded-lg p-3 text-[14px] font-medium shadow-md shadow-gray-300 max-w-[700px]",
         isMe ? "rounded-br-none" : "rounded-bl-none",
         className
       )}

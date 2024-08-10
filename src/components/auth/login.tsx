@@ -13,17 +13,34 @@ import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
 import { LogInIcon } from "lucide-react";
 import { useState } from "react";
+import Avatars from "../avatars";
 
 export function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [avatarIndex, setAvatarIndex] = useState(2);
+  const [auth, setAuth] = useState("login");
 
   const handlerLogin = () => {
-    api
-      .post(`${urls.auth.login}`, { name, password })
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
+    if (name && password) {
+      api
+        .post(`${urls.auth.login}`, { name, password })
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+    }
   };
+
+  const handlerSignUp = () => {
+    if (name && password) {
+      api
+        .post(`${urls.auth.signup}`, { name, password, avatarIndex })
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e));
+    }
+  };
+
+  const avatarArray = [0, 1, 2, 3, 4, 5, 6];
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,7 +51,7 @@ export function Login() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Войти</DialogTitle>
+          <DialogTitle>{auth === "signin" ? "создать" : "войти"}</DialogTitle>
         </DialogHeader>
         <div className="grid flex-1 gap-2">
           <Input type="text" onChange={(e) => setName(e.target.value)} placeholder="имя" />
@@ -42,10 +59,36 @@ export function Login() {
         <div className="grid flex-1 gap-2">
           <Input type="text" onChange={(e) => setPassword(e.target.value)} placeholder="пароль" />
         </div>
-        <DialogFooter className="sm:justify-start">
+        <div className={`${auth === "signin" ? "flex" : "hidden"} justify-between items-center`}>
+          {avatarArray.map((el) => (
+            <span onClick={() => setAvatarIndex(el)}>
+              <Avatars
+                key={el}
+                index={el}
+                className={`${
+                  avatarIndex === el ? "shadow-green-600  shadow-lg transform: scale-150 transition-all" : ""
+                } cursor-pointer`}
+              />
+            </span>
+          ))}
+        </div>
+        <DialogFooter className="items-center">
+          <p className="text-sm mr-2">
+            <span
+              className="text-green-500 hover:underline cursor-pointer"
+              onClick={() => (auth === "signin" ? setAuth("login") : setAuth("signin"))}
+            >
+              {auth === "signin" ? "войти в" : "создать"}
+            </span>{" "}
+            аккаунт
+          </p>
           <DialogClose asChild>
-            <Button className="ml-auto" onClick={() => handlerLogin()} type="button" variant="default">
-              вайти
+            <Button
+              onClick={() => [auth === "signin" ? handlerSignUp() : handlerLogin()]}
+              type="button"
+              variant="default"
+            >
+              войти
             </Button>
           </DialogClose>
         </DialogFooter>
