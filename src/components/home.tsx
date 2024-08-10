@@ -9,7 +9,12 @@ import Headers from "./headers";
 const Home = () => {
   return (
     <>
-      <img src={bgImage} loading="lazy" alt="img" className="absolute top-0 left-0 w-full h-full z-[-1] sepia-[60%]" />
+      <img
+        src={bgImage}
+        loading="lazy"
+        alt="img"
+        className="absolute top-0 left-0 w-full h-full z-[-1] sepia-[60%] object-cover"
+      />
       <Headers />
       <Container className="justify-center content-center">
         <div className=" flex items-center justify-between gap-5">
