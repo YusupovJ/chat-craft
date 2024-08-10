@@ -13,7 +13,7 @@ import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
 import { LogInIcon } from "lucide-react";
 import { useState } from "react";
-import Avatars from "../avatars";
+import Avatars from "./avatars";
 
 export function Login() {
   const [name, setName] = useState("");
@@ -23,10 +23,9 @@ export function Login() {
 
   const handlerLogin = () => {
     if (name && password) {
-      api
-        .post(`${urls.auth.login}`, { name, password })
-        .then((res) => console.log(res))
-        .catch((e) => console.log(e));
+      try {
+        api.post(`${urls.auth.login}`, { name, password });
+      } catch (error) {}
     }
   };
 
@@ -73,7 +72,7 @@ export function Login() {
           ))}
         </div>
         <DialogFooter className="items-center">
-          <p className="text-sm mr-2">
+          <p className="text-sm mr-2 mt-3 sm:mt-0">
             <span
               className="text-green-500 hover:underline cursor-pointer"
               onClick={() => (auth === "signin" ? setAuth("login") : setAuth("signin"))}
@@ -88,7 +87,7 @@ export function Login() {
               type="button"
               variant="default"
             >
-              войти
+              {auth === "signin" ? "создать" : "войти"}
             </Button>
           </DialogClose>
         </DialogFooter>
