@@ -6,7 +6,7 @@ import { Toaster } from "./ui/sonner";
 const App = () => {
   return (
     <>
-      <Toaster />
+      <Toaster closeButton richColors theme="light" />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/chat" element={<Chat />} />
