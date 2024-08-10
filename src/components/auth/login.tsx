@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
+import { LogInIcon } from "lucide-react";
 import { useState } from "react";
 
 export function Login() {
@@ -26,7 +27,10 @@ export function Login() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Войти</Button>
+        <div className="flex items-center bg-white cursor-pointer px-3 rounded-md">
+          <LogInIcon />
+          <Button variant="ghost">Войти</Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
