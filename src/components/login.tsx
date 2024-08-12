@@ -3,21 +3,22 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { api } from "@/lib/api";
-import { urls } from "@/lib/urls";
 import { LogInIcon } from "lucide-react";
 import { useState } from "react";
 import Avatars from "./avatars";
 import { storageAccessToken, storageRefreshToken } from "@/lib/tokens";
 import { toast } from "sonner";
+import { api } from "@/lib/api";
+import { urls } from "@/lib/urls";
 
-export function Login() {
+function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatarIndex] = useState(2);
@@ -60,19 +61,19 @@ export function Login() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{auth === "signin" ? "создать" : "войти"}</DialogTitle>
+          <DialogTitle>{auth === "signin" ? "Создать" : "Войти"}</DialogTitle>
         </DialogHeader>
+        <DialogDescription className="hidden">eee</DialogDescription>
         <div className="grid flex-1 gap-2">
-          <Input type="text" onChange={(e) => setName(e.target.value)} placeholder="имя" />
+          <Input type="text" onChange={(e) => setName(e.target.value)} placeholder="Имя" />
         </div>
         <div className="grid flex-1 gap-2">
-          <Input type="text" onChange={(e) => setPassword(e.target.value)} placeholder="пароль" />
+          <Input type="text" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
         </div>
         <div className={`${auth === "signin" ? "flex" : "hidden"} justify-between items-center`}>
           {avatarArray.map((el) => (
             <span key={el} onClick={() => setAvatarIndex(el)}>
               <Avatars
-                key={el}
                 index={el}
                 className={`${
                   avatar === el ? "shadow-green-600  shadow-lg transform: scale-150 transition-all" : ""
@@ -87,7 +88,7 @@ export function Login() {
               className="text-green-500 hover:underline cursor-pointer"
               onClick={() => (auth === "signin" ? setAuth("login") : setAuth("signin"))}
             >
-              {auth === "signin" ? "войти в" : "создать"}
+              {auth === "signin" ? "Войти в" : "Создать"}
             </span>{" "}
             аккаунт
           </p>
@@ -97,7 +98,7 @@ export function Login() {
               type="button"
               variant="default"
             >
-              {auth === "signin" ? "создать" : "войти"}
+              {auth === "signin" ? "Зарегистрироваться" : "Войти"}
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -105,4 +106,5 @@ export function Login() {
     </Dialog>
   );
 }
+
 export default Login;

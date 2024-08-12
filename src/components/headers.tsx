@@ -1,6 +1,5 @@
 import Container from "./container";
 import Logo from "../assets/logo.svg?react";
-import Login from "./login";
 import { getToken } from "@/lib/tokens";
 import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
@@ -8,6 +7,7 @@ import { useEffect, useState } from "react";
 import Avatars from "./avatars";
 import { DropdownMenuRadioGroupDemo } from "./dropdown";
 import { toast } from "sonner";
+import Login from "./login";
 
 const Headers = () => {
   const [me, setMe] = useState<IMeResult>();
