@@ -14,27 +14,37 @@ import { urls } from "@/lib/urls";
 import { LogInIcon } from "lucide-react";
 import { useState } from "react";
 import Avatars from "./avatars";
+import { storageAccessToken, storageRefreshToken } from "@/lib/tokens";
+import { toast } from "sonner";
 
 export function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [avatarIndex, setAvatarIndex] = useState(2);
+  const [avatar, setAvatarIndex] = useState(2);
   const [auth, setAuth] = useState("login");
 
-  const handlerLogin = () => {
+  const handlerLogin = async () => {
     if (name && password) {
       try {
-        api.post(`${urls.auth.login}`, { name, password });
-      } catch (error) {}
+        const respons = await api.post(`${urls.auth.login}`, { username: name, password });
+        storageAccessToken(respons.data?.accessToken);
+        storageRefreshToken(respons.data?.refreshToken);
+        toast.success(`вы успешны в своем аккаунте`);
+      } catch (error: unknown) {
+        console.log(error);
+      }
     }
   };
 
-  const handlerSignUp = () => {
+  const handlerSignUp = async () => {
     if (name && password) {
-      api
-        .post(`${urls.auth.signup}`, { name, password, avatarIndex })
-        .then((res) => console.log(res))
-        .catch((e) => console.log(e));
+      try {
+        const respons = await api.post(`${urls.auth.signup}`, { username: name, password, avatar });
+        storageAccessToken(respons.data?.accessToken);
+        storageRefreshToken(respons.data?.refreshToken);
+      } catch (error: unknown) {
+        console.log(error);
+      }
     }
   };
 
@@ -60,12 +70,12 @@ export function Login() {
         </div>
         <div className={`${auth === "signin" ? "flex" : "hidden"} justify-between items-center`}>
           {avatarArray.map((el) => (
-            <span onClick={() => setAvatarIndex(el)}>
+            <span key={el} onClick={() => setAvatarIndex(el)}>
               <Avatars
                 key={el}
                 index={el}
                 className={`${
-                  avatarIndex === el ? "shadow-green-600  shadow-lg transform: scale-150 transition-all" : ""
+                  avatar === el ? "shadow-green-600  shadow-lg transform: scale-150 transition-all" : ""
                 } cursor-pointer`}
               />
             </span>

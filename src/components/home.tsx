@@ -39,7 +39,13 @@ const Home = () => {
             </div>
           </div>
           <div className="max-w-[450px] mr-10 animate-[wiggle_9s_ease-in-out_infinite] ">
-            <img className="animate-[zoom_1s_ease-in-out_1] origin-bottom-left" src={steve} width="100%" alt="steve" />
+            <img
+              loading="lazy"
+              className="animate-[zoom_1s_ease-in-out_1] origin-bottom-left"
+              src={steve}
+              width="100%"
+              alt="alex"
+            />
           </div>
         </div>
       </Container>

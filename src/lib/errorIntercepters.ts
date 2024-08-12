@@ -2,6 +2,7 @@ import axios from "axios";
 import { api } from "./api";
 import { baseURL, urls } from "./urls";
 import { toast } from "sonner";
+import { storageAccessToken, storageRefreshToken } from "./tokens";
 
 export const errorInterceptor = async (error: any) => {
   const originalConfig = error.config;
@@ -23,8 +24,8 @@ export const errorInterceptor = async (error: any) => {
 
       const tokens = response.data.data;
 
-      window.localStorage.setItem("accessToken", tokens.accessToken);
-      window.localStorage.setItem("refreshToken", tokens.refreshToken);
+      await storageAccessToken(tokens.accessToken);
+      await storageRefreshToken(tokens.refreshToken);
 
       return api.request(originalConfig);
     }

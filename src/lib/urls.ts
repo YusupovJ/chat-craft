@@ -5,5 +5,6 @@ export const urls = {
     signup: "/auth/signup",
     refresh: "/auth/refresh",
     login: "/auth/login",
+    me: "/auth/me",
   },
 };
