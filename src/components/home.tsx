@@ -8,7 +8,7 @@ import Headers from "./headers";
 
 const Home = () => {
   return (
-    <>
+    <div>
       <img
         src={bgImage}
         loading="lazy"
@@ -49,7 +49,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 

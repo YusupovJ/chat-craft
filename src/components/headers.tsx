@@ -16,11 +16,22 @@ const Headers = () => {
   const updateAvatar = useAuthStor((state) => state.updateAvatar);
   const updateId = useAuthStor((state) => state.updateId);
   const accessToken = useAuthStor((state) => state.accessToken);
+  const updateAccessToken = useAuthStor((state) => state.updateAccessToken);
+  const updateRefreshToken = useAuthStor((state) => state.updateRefreshToken);
+  const access = getToken("accessToken");
+  const refresh = getToken("refreshToken");
 
   useEffect(() => {
     api
       .get<IMe>(`${urls.auth.me}`)
-      .then((res) => [setMe(res), updateUser(res.data.username), updateAvatar(res.data.avatar), updateId(res.data.id)]);
+      .then((res) => [
+        setMe(res),
+        updateUser(res.data.username),
+        updateAvatar(res.data.avatar),
+        updateId(res.data.id),
+        updateAccessToken(access || undefined),
+        updateRefreshToken(refresh || undefined),
+      ]);
   }, [accessToken]);
 
   if (me) {
