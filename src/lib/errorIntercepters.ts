@@ -24,8 +24,8 @@ export const errorInterceptor = async (error: any) => {
 
       const tokens = response.data.data;
 
-      await storageAccessToken(tokens.accessToken);
-      await storageRefreshToken(tokens.refreshToken);
+      storageAccessToken(tokens.accessToken);
+      storageRefreshToken(tokens.refreshToken);
 
       return api.request(originalConfig);
     }
