@@ -29,6 +29,7 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
 
     socket.on("reply", (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
+      setTimeout(scrollBottom, 100);
     });
 
     return () => {
@@ -37,14 +38,15 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
   }, []);
 
   const sendMessage = () => {
-    socket.emit("message", {
-      chatId: id,
-      userId: userId,
-      content,
-    });
+    if (content) {
+      socket.emit("message", {
+        chatId: id,
+        userId: userId,
+        content,
+      });
 
-    setContent("");
-    setTimeout(scrollBottom, 100);
+      setContent("");
+    }
   };
 
   return (
