@@ -78,7 +78,7 @@ function Login() {
           <Input type="text" onChange={(e) => setName(e.target.value)} placeholder="Имя" />
         </div>
         <div className="grid flex-1 gap-2">
-          <Input type="number" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
+          <Input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
         </div>
         <div className={`${auth === "signin" ? "flex" : "hidden"} justify-between items-center`}>
           {avatarArray.map((el) => (
