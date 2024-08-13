@@ -8,4 +8,10 @@ export const urls = {
     me: "/auth/me",
     logout: "/auth/logout",
   },
+  chat: {
+    create: "/chat",
+  },
+  message: {
+    getAll: (chatId: string) => `/message?chatId=${chatId}`,
+  },
 };

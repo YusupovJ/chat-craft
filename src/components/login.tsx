@@ -17,15 +17,15 @@ import { storageAccessToken, storageRefreshToken } from "@/lib/tokens";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
-import { useAuthStor } from "@/stor/auth";
+import { useAuthStore } from "@/store/auth";
 
 function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatarIndex] = useState(2);
   const [auth, setAuth] = useState("login");
-  const updateAccessToken = useAuthStor((state) => state.updateAccessToken);
-  const updateRefreshToken = useAuthStor((state) => state.updateRefreshToken);
+  const updateAccessToken = useAuthStore((state) => state.updateAccessToken);
+  const updateRefreshToken = useAuthStore((state) => state.updateRefreshToken);
 
   const handlerLogin = async () => {
     if (name && password) {
@@ -38,6 +38,7 @@ function Login() {
         toast.success(`вы успешно вошли в свой аккаунт`);
       } catch (error) {
         console.log(error);
+        toast.error("Пароль или логин неверны");
       }
     }
   };
@@ -50,8 +51,10 @@ function Login() {
         storageRefreshToken(response.data?.refreshToken);
         updateAccessToken(response.data.accessToken);
         updateRefreshToken(response.data.refreshToken);
+        toast.success(`вы успешно зарегистрировались`);
       } catch (error: unknown) {
         console.log(error);
+        toast.error("Пользователь уже существует");
       }
     }
   };

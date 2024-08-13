@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useAuthStor = create<IMe & IAuthStor>((set) => ({
+export const useAuthStore = create<IMe & IAuthStore>((set) => ({
   username: "",
   avatar: 0,
   id: 0,

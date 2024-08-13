@@ -1,14 +1,19 @@
 import Container from "./container";
 import steve from "../assets/minecraft-realms-minecraft-6.png";
 import { Button } from "./ui/button";
-import { GitPullRequestCreateArrow } from "lucide-react";
 import { Input } from "./ui/input";
 import bgImage from "../assets/bg-main.jpg";
 import Headers from "./headers";
+import NewChat from "./newChat";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [chatId, setChatId] = useState("");
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <>
       <img
         src={bgImage}
         loading="lazy"
@@ -28,13 +33,15 @@ const Home = () => {
               глобального сообщества, где каждый голос важен!
             </p>
             <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5">
-              <Button>
-                <GitPullRequestCreateArrow />
-                <p className="ml-5">Cоздать</p>
-              </Button>
+              <NewChat />
               <div className="flex space-x-1 w-full">
-                <Input placeholder="Поиск встречи" autoComplete="false" />
-                <Button>поиск</Button>
+                <Input
+                  placeholder="Поиск встречи"
+                  autoComplete="false"
+                  onChange={(e) => setChatId(e.target.value)}
+                  value={chatId}
+                />
+                <Button onClick={() => navigate(`/chat/${chatId}`)}>поиск</Button>
               </div>
             </div>
           </div>
@@ -49,7 +56,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-    </div>
+    </>
   );
 };
 
