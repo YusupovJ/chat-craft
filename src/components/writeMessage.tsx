@@ -17,6 +17,13 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
   const { id } = useParams();
   const userId = useAuthStore((state) => state.id);
 
+  const scrollBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight + 500,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     socket.emit("join", id);
 
@@ -35,6 +42,9 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
       userId: userId,
       content,
     });
+
+    setContent("");
+    setTimeout(scrollBottom, 100);
   };
 
   return (
@@ -43,6 +53,11 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
         placeholder="Сообщение"
         className="rounded-none"
         onChange={(e) => setContent(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.code === "Enter") {
+            sendMessage();
+          }
+        }}
         value={content}
       />
       <Button className="rounded-none flex gap-2 items-center" onClick={sendMessage} aria-label="Отправить сообщение">

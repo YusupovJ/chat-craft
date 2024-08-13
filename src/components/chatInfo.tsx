@@ -8,6 +8,24 @@ interface Props {
   className?: string;
 }
 
+function unsecuredCopyToClipboard(text: string) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand("copy");
+    toast.success("Пригласительная ссылка скопирована", {
+      description: "Отправьте тому кого хотите пригласить",
+    });
+  } catch (err) {
+    console.error(err);
+    toast.error("Не удалось скопировать текст");
+  }
+  document.body.removeChild(textArea);
+}
+
 const ChatInfo: FC<Props> = () => {
   const navigate = useNavigate();
 
@@ -21,8 +39,8 @@ const ChatInfo: FC<Props> = () => {
         description: "Отправьте тому кого хотите пригласить",
       });
     } catch (error) {
-      toast.error("Не удалось скопировать текст");
-      console.log(error);
+      unsecuredCopyToClipboard(url);
+      console.log("http copy", error);
     }
   };
 
