@@ -35,13 +35,14 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
       userId: userId,
       content,
     });
+    setContent("");
   };
 
   return (
     <div className="fixed flex bg-white py-2 bottom-0 left-0 w-full px-2">
       <Input
         placeholder="Сообщение"
-        className="rounded-none"
+        className="rounded-none border-2 border-gray-400"
         onChange={(e) => setContent(e.target.value)}
         value={content}
       />
