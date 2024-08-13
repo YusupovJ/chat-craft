@@ -18,3 +18,9 @@ export const getToken = (token: string) => {
   }
   return null;
 };
+
+export const removeToken = () => {
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("accessToken");
+  console.log("logout");
+};

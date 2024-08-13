@@ -8,12 +8,20 @@ import Avatars from "./avatars";
 import { DropdownMenuRadioGroupDemo } from "./dropdown";
 import { toast } from "sonner";
 import Login from "./login";
+import { useAuthStor } from "@/stor/auth";
 
 const Headers = () => {
   const [me, setMe] = useState<IMeResult>();
+  const updateUser = useAuthStor((state) => state.updateUser);
+  const updateAvatar = useAuthStor((state) => state.updateAvatar);
+  const updateId = useAuthStor((state) => state.updateId);
+  const accessToken = useAuthStor((state) => state.accessToken);
+
   useEffect(() => {
-    api.get(`${urls.auth.me}`).then((res) => setMe(res));
-  }, []);
+    api
+      .get<IMe>(`${urls.auth.me}`)
+      .then((res) => [setMe(res), updateUser(res.data.username), updateAvatar(res.data.avatar), updateId(res.data.id)]);
+  }, [accessToken]);
 
   if (me) {
     toast.success(`добро пожаловать ${me.data.username}`);

@@ -17,21 +17,26 @@ import { storageAccessToken, storageRefreshToken } from "@/lib/tokens";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
+import { useAuthStor } from "@/stor/auth";
 
 function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatarIndex] = useState(2);
   const [auth, setAuth] = useState("login");
+  const updateAccessToken = useAuthStor((state) => state.updateAccessToken);
+  const updateRefreshToken = useAuthStor((state) => state.updateRefreshToken);
 
   const handlerLogin = async () => {
     if (name && password) {
       try {
-        const respons = await api.post(`${urls.auth.login}`, { username: name, password });
-        storageAccessToken(respons.data?.accessToken);
-        storageRefreshToken(respons.data?.refreshToken);
-        toast.success(`вы успешны в своем аккаунте`);
-      } catch (error: unknown) {
+        const response = await api.post(`${urls.auth.login}`, { username: name, password });
+        storageAccessToken(response.data.accessToken);
+        storageRefreshToken(response.data.refreshToken);
+        updateAccessToken(response.data.accessToken);
+        updateRefreshToken(response.data.refreshToken);
+        toast.success(`вы успешно вошли в свой аккаунт`);
+      } catch (error) {
         console.log(error);
       }
     }
@@ -40,9 +45,11 @@ function Login() {
   const handlerSignUp = async () => {
     if (name && password) {
       try {
-        const respons = await api.post(`${urls.auth.signup}`, { username: name, password, avatar });
-        storageAccessToken(respons.data?.accessToken);
-        storageRefreshToken(respons.data?.refreshToken);
+        const response = await api.post(`${urls.auth.signup}`, { username: name, password, avatar });
+        storageAccessToken(response.data?.accessToken);
+        storageRefreshToken(response.data?.refreshToken);
+        updateAccessToken(response.data.accessToken);
+        updateRefreshToken(response.data.refreshToken);
       } catch (error: unknown) {
         console.log(error);
       }
@@ -68,7 +75,7 @@ function Login() {
           <Input type="text" onChange={(e) => setName(e.target.value)} placeholder="Имя" />
         </div>
         <div className="grid flex-1 gap-2">
-          <Input type="text" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
+          <Input type="number" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
         </div>
         <div className={`${auth === "signin" ? "flex" : "hidden"} justify-between items-center`}>
           {avatarArray.map((el) => (

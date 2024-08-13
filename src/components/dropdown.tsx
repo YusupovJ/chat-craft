@@ -6,8 +6,25 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { api } from "@/lib/api";
+import { removeToken } from "@/lib/tokens";
+import { urls } from "@/lib/urls";
+import { useAuthStor } from "@/stor/auth";
 
 export function DropdownMenuRadioGroupDemo({ name }: { name: string | undefined }) {
+  const updateAccessToken = useAuthStor((state) => state.updateAccessToken);
+  const updateRefreshToken = useAuthStor((state) => state.updateRefreshToken);
+
+  const handelLogout = async () => {
+    try {
+      await api.post(`${urls.auth.logout}`);
+      removeToken();
+      updateAccessToken("");
+      updateRefreshToken("");
+    } catch (error: unknown) {
+      console.log(error);
+    }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,6 +36,7 @@ export function DropdownMenuRadioGroupDemo({ name }: { name: string | undefined 
       <DropdownMenuContent className="w-auto p-0">
         <DropdownMenuRadioGroup>
           <DropdownMenuRadioItem
+            onClick={() => handelLogout()}
             value=""
             className="bg-red-600 focus:bg-red-500 focus:text-gray-50 cursor-pointer text-white"
           >
