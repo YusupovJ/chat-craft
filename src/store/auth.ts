@@ -1,3 +1,4 @@
+import { IAuthStore, IMe } from "@/types";
 import { create } from "zustand";
 
 export const useAuthStore = create<IMe & IAuthStore>((set) => ({
@@ -6,9 +7,9 @@ export const useAuthStore = create<IMe & IAuthStore>((set) => ({
   id: 0,
   accessToken: "",
   refreshToken: "",
-  updateUser: (username) => set(() => ({ username })),
-  updateAvatar: (avatar) => set(() => ({ avatar })),
-  updateId: (id) => set(() => ({ id })),
-  updateRefreshToken: (refreshToken) => set(() => ({ refreshToken })),
-  updateAccessToken: (accessToken) => set(() => ({ accessToken })),
+  updateUser: (username: string) => set(() => ({ username })),
+  updateAvatar: (avatar: number) => set(() => ({ avatar })),
+  updateId: (id: number) => set(() => ({ id })),
+  updateRefreshToken: (refreshToken?: string) => set(() => ({ refreshToken })),
+  updateAccessToken: (accessToken?: string) => set(() => ({ accessToken })),
 }));

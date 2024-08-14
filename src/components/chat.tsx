@@ -8,6 +8,7 @@ import { urls } from "@/lib/urls";
 import { useAuthStore } from "@/store/auth";
 import { toast } from "sonner";
 import { getToken } from "@/lib/tokens";
+import { IApiReponse, IMessage } from "@/types";
 
 const Chat = () => {
   const { id } = useParams();
