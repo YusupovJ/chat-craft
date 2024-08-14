@@ -8,13 +8,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface IEmojiProps {
   setContent: Dispatch<SetStateAction<string>>;
 }
 
 export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
+  let [indexEmoji, setIndexEmoji] = useState(0);
+
   const emoji = [
     ":/",
     ":>",
@@ -48,10 +50,18 @@ export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
     ">:-D",
   ];
 
+  useEffect(() => {
+    setInterval(() => {
+      setIndexEmoji(Math.round(Math.random() * emoji.length));
+    }, 3000);
+  }, []);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{":D"}</Button>
+        <Button variant="outline" className="max-w-[60px] min-w-[60px] border-2 border-gray-300">
+          {emoji[indexEmoji]}
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>смайлики</DropdownMenuLabel>
