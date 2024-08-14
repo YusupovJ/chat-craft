@@ -10,8 +10,10 @@ interface Props {
 
 function unsecuredCopyToClipboard(text: string) {
   const textArea = document.createElement("textarea");
+
   textArea.value = text;
   document.body.appendChild(textArea);
+
   textArea.focus();
   textArea.select();
   try {
@@ -23,6 +25,7 @@ function unsecuredCopyToClipboard(text: string) {
     console.error(err);
     toast.error("Не удалось скопировать текст");
   }
+
   document.body.removeChild(textArea);
 }
 

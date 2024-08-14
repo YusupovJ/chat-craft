@@ -44,10 +44,10 @@ const Chat = () => {
   }, []);
 
   return (
-    <main className="bg-gray-200 min-h-screen px-4 pb-20 pt-5">
+    <main className="bg-gray-200 min-h-[100svh] px-4 pb-20 pt-5">
       <ChatInfo />
       <MessageList messages={messages} me={{ id: userId, username, avatar }} />
-      <WriteMessage setMessages={setMessages} />
+      <WriteMessage setMessages={setMessages} messages={messages} />
     </main>
   );
 };
