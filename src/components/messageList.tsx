@@ -2,6 +2,7 @@ import { FC } from "react";
 import Avatars from "./avatars";
 import { cn } from "@/lib/utils";
 import Message from "./message";
+import { IMessage, IUser } from "@/types";
 
 interface Props {
   messages: IMessage[];
@@ -19,8 +20,13 @@ const MessageList: FC<Props> = ({ messages, me }) => {
             <Avatars index={message.user.avatar} />
 
             <Message isMe={isMe}>
-              <p className="text-[11px] lg:text-[13px] text-primary font-bold">{message.user.username}</p>{" "}
+              <p className={`text-[11px] lg:text-[13px] text-primary font-boldis ${isMe && "text-end"}`}>
+                {message.user.username}
+              </p>{" "}
               {message.content}
+              <p className={`text-[9px] lg:text-[11px] text-primary font-light ${!isMe && "text-end"}`}>
+                {new Date(message.created_at as string).toLocaleDateString()}
+              </p>{" "}
             </Message>
           </div>
         );
