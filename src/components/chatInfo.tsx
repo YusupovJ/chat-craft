@@ -59,7 +59,7 @@ const ChatInfo: FC<Props> = () => {
         <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={shareLink}>
           <p className="hidden md:block">Пригласить</p> <Share2 size="20" />
         </Button>
-        <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={leave}>
+        <Button variant="outline" className="font-bold flex gap-2 p-2 left-scroll" onClick={leave}>
           <p className="hidden md:block">Выйти</p> <LogOut size="20" />
         </Button>
       </div>
