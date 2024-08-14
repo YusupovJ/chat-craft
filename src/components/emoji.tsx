@@ -147,12 +147,12 @@ export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
       <DropdownMenuContent className="max-h-[500px] overflow-auto">
         <DropdownMenuLabel>Смайлики</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup className="grid grid-cols-4 gap-4">
+        <DropdownMenuRadioGroup className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {emojiList.map((emoji) => (
             <DropdownMenuRadioItem
               onClick={() => selectEmoji(emoji)}
               key={emoji}
-              className="hover:bg-gray-100 py-3 cursor-pointer"
+              className="hover:bg-gray-100 p-0 py-3 px-2 cursor-pointer flex justify-center"
               value="top"
             >
               {emoji}
