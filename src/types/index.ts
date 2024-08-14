@@ -1,6 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-
-interface IMe {
+export interface IMe {
   username: string;
   avatar: number;
   id: number;
@@ -8,11 +6,7 @@ interface IMe {
   accessToken: string | undefined;
 }
 
-interface IMeResult {
-  data: IMe;
-}
-
-interface IAuthStore {
+export interface IAuthStore {
   updateUser: (username: IMe["username"]) => void;
   updateAvatar: (avatar: IMe["avatar"]) => void;
   updateId: (id: IMe["id"]) => void;
@@ -20,7 +14,7 @@ interface IAuthStore {
   updateAccessToken: (token: IMe["accessToken"]) => void;
 }
 
-interface IPagination {
+export interface IPagination {
   totalItems: number;
   offset: number;
   totalPages: number;
@@ -28,27 +22,27 @@ interface IPagination {
   limit: number;
 }
 
-interface IApiReponse<T> {
+export interface IApiReponse<T> {
   data: T;
   date: string;
   pagination: IPagination | null;
   status: number;
 }
 
-interface IChat {
+export interface IChat {
   id: string;
   name: string;
   created_at: string;
   updated_at: string;
 }
 
-interface IUser {
+export interface IUser {
   id: number;
   username: string;
   avatar: number;
 }
 
-interface IMessage {
+export interface IMessage {
   id: number;
   content: string;
   user: IUser;
