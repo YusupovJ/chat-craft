@@ -46,5 +46,5 @@ export interface IMessage {
   id: number;
   content: string;
   user: IUser;
-  created_at?: string;
+  created_at: string;
 }

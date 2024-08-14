@@ -11,15 +11,17 @@ import { IMessage } from "@/types";
 interface IProps {
   setMessages: Dispatch<SetStateAction<IMessage[]>>;
   messages: IMessage[];
+  page: number;
+  setAllowScroll: Dispatch<SetStateAction<boolean>>;
+  allowScroll: boolean;
 }
 
 const socket = io(import.meta.env.VITE_BASEURL);
 
-const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
+const WriteMessage: FC<IProps> = ({ setMessages, messages, page, setAllowScroll, allowScroll }) => {
   const [content, setContent] = useState("");
   const { id } = useParams();
   const userId = useAuthStore((state) => state.id);
-  const [isScroll, setIsScroll] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -37,11 +39,12 @@ const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
   }, [socket, id, userId]);
 
   useEffect(() => {
-    const toBottomOnReload = !document.documentElement.getBoundingClientRect().y;
+    const dom = document.documentElement;
+    const toBottomOnReload = !dom.getBoundingClientRect().y;
 
     if (toBottomOnReload) {
       window.scrollTo({
-        top: document.documentElement.scrollHeight,
+        top: dom.getBoundingClientRect().height / page - 72,
         behavior: "instant",
       });
       return;
@@ -51,12 +54,12 @@ const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
   }, [messages]);
 
   const scrollOnReply = () => {
-    if (isScroll) {
+    if (allowScroll) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: "smooth",
       });
-      setIsScroll(false);
+      setAllowScroll(false);
     }
   };
 
@@ -64,9 +67,9 @@ const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
     const isAtBottom = document.documentElement.scrollHeight <= window.innerHeight + window.scrollY + 10;
 
     if (isAtBottom || isMe) {
-      setIsScroll(true);
+      setAllowScroll(true);
     } else {
-      setIsScroll(false);
+      setAllowScroll(false);
     }
   };
 
@@ -89,6 +92,7 @@ const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
         placeholder="Сообщение"
         ref={inputRef}
         type="search"
+        id="input-message"
         autoComplete="off"
         className="rounded-none border-2 border-gray-300"
         onChange={(e) => setContent(e.target.value)}
@@ -100,7 +104,11 @@ const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
         value={content}
       />
       <EmojiDropdownMenu setContent={setContent} />
-      <Button className="rounded-none flex gap-2 items-center" onClick={sendMessage} aria-label="Отправить сообщение">
+      <Button
+        className="rounded-none flex gap-2 items-center left-scroll"
+        onClick={sendMessage}
+        aria-label="Отправить сообщение"
+      >
         <p className="hidden md:block">Отправить сообщение</p> <Send />
       </Button>
     </div>

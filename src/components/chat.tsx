@@ -12,13 +12,19 @@ import { IApiReponse, IMessage } from "@/types";
 
 const Chat = () => {
   const { id } = useParams();
-  const [messages, setMessages] = useState<IMessage[]>([]);
+  const navigate = useNavigate();
+
   const isAuth = useAuthStore((state) => state.accessToken);
   const userId = useAuthStore((state) => state.id);
   const username = useAuthStore((state) => state.username);
   const avatar = useAuthStore((state) => state.avatar);
-  const navigate = useNavigate();
   const accessToken = getToken("accessToken");
+
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [scrolledToTop, setScrolledToTop] = useState(false);
+  const [allowScroll, setAllowScroll] = useState(true);
 
   useEffect(() => {
     if (!isAuth && !accessToken) {
@@ -28,11 +34,13 @@ const Chat = () => {
   }, [isAuth, accessToken]);
 
   useEffect(() => {
-    if (id) {
+    if (id && page <= totalPages) {
       api
-        .get<any, IApiReponse<IMessage[]>>(urls.message.getAll(id))
+        .get<any, IApiReponse<IMessage[]>>(urls.message.getAll(id, page))
         .then((res) => {
-          setMessages(res.data);
+          setMessages([...res.data.reverse(), ...messages]);
+          setTotalPages(res.pagination?.totalPages || 1);
+          setScrolledToTop(false);
         })
         .catch((err: any) => {
           if (err.response.status === 404) {
@@ -41,13 +49,29 @@ const Chat = () => {
           }
         });
     }
+  }, [page]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (!scrolledToTop && window.scrollY === 0) {
+        setPage((page) => page + 1);
+        setScrolledToTop(true);
+        setAllowScroll(false);
+      }
+    });
   }, []);
 
   return (
     <main className="bg-gray-200 min-h-[100svh] px-4 pb-20 pt-5">
       <ChatInfo />
       <MessageList messages={messages} me={{ id: userId, username, avatar }} />
-      <WriteMessage setMessages={setMessages} messages={messages} />
+      <WriteMessage
+        setMessages={setMessages}
+        messages={messages}
+        page={page}
+        setAllowScroll={setAllowScroll}
+        allowScroll={allowScroll}
+      />
     </main>
   );
 };

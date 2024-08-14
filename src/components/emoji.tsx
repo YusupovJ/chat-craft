@@ -15,9 +15,9 @@ interface IEmojiProps {
 }
 
 export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
-  let [indexEmoji, setIndexEmoji] = useState(0);
+  const [indexEmoji, setIndexEmoji] = useState(0);
 
-  const emoji = [
+  const emojiList = [
     ":/",
     ":>",
     ":D",
@@ -52,24 +52,33 @@ export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
 
   useEffect(() => {
     setInterval(() => {
-      setIndexEmoji(Math.round(Math.random() * emoji.length));
+      setIndexEmoji(Math.round(Math.random() * emojiList.length));
     }, 3000);
   }, []);
+
+  const selectEmoji = (emoji: string) => {
+    setContent((el) => (el += emoji));
+    const input: HTMLInputElement | null = document.querySelector("#input-message");
+
+    if (input) {
+      input.focus();
+    }
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="max-w-[60px] min-w-[60px] border-2 border-gray-300">
-          {emoji[indexEmoji]}
+          {emojiList[indexEmoji]}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>смайлики</DropdownMenuLabel>
+        <DropdownMenuLabel>Смайлики</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup className="grid grid-cols-5 gap-4">
-          {emoji.map((emoji) => (
+          {emojiList.map((emoji) => (
             <DropdownMenuRadioItem
-              onClick={() => setContent((el) => (el += emoji))}
+              onClick={() => selectEmoji(emoji)}
               key={emoji}
               className="hover:bg-gray-100 py-3 px-auto cursor-pointer"
               value="top"
