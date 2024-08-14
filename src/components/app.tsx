@@ -7,6 +7,7 @@ import { useAuthStore } from "@/store/auth";
 import { urls } from "@/lib/urls";
 import { api } from "@/lib/api";
 import { getToken } from "@/lib/tokens";
+import { IMe } from "@/types";
 
 const App = () => {
   const updateUser = useAuthStore((state) => state.updateUser);

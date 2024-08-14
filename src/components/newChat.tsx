@@ -8,6 +8,7 @@ import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
+import { IApiReponse, IChat } from "@/types";
 
 const NewChat = () => {
   const [name, setName] = useState<string>("");
