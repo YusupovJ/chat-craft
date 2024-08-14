@@ -90,7 +90,7 @@ const WriteMessage: FC<IProps> = ({ setMessages, messages }) => {
         ref={inputRef}
         type="search"
         autoComplete="off"
-        className="rounded-none border-2 border-gray-400"
+        className="rounded-none border-2 border-gray-300"
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={(e) => {
           if (e.code === "Enter") {
