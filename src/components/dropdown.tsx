@@ -3,7 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { api } from "@/lib/api";
@@ -29,7 +28,7 @@ export function DropdownMenuRadioGroupDemo({ name }: { name: string | undefined 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="text-white font-bold text-md border-2 border-white">
+        <Button className="text-white font-sm text-[12px] lg:text-[16px] border border-white">
           {name || "user"}
           <span className="px-1 py-2">
             <ChevronDown />
@@ -38,13 +37,12 @@ export function DropdownMenuRadioGroupDemo({ name }: { name: string | undefined 
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-auto p-0">
         <DropdownMenuRadioGroup>
-          <DropdownMenuRadioItem
+          <div
             onClick={handelLogout}
-            value=""
-            className="bg-red-600 focus:bg-red-500 focus:text-gray-50 cursor-pointer text-white"
+            className="bg-red-600 p-2 focus:bg-red-500 focus:text-gray-50 cursor-pointer text-white text-[12px]"
           >
-            logout
-          </DropdownMenuRadioItem>
+            <p className="text-center">logout</p>
+          </div>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

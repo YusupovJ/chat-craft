@@ -21,6 +21,13 @@ const MessageList: FC<Props> = ({ messages, me }) => {
       {messages.map((message) => {
         const isMe = me.id === message.user.id;
 
+        const isUrl = (msg: string) => {
+          if (msg.includes("http://" || "https://")) {
+            return { content: msg, url: true };
+          }
+          return { content: msg, url: false };
+        };
+
         return (
           <div className={cn("flex gap-3 sm:gap-6 items-center", isMe && "flex-row-reverse")} key={message.id}>
             <Avatars index={message.user.avatar} />
@@ -29,7 +36,13 @@ const MessageList: FC<Props> = ({ messages, me }) => {
               <p className={`text-[11px] lg:text-[13px] text-primary font-boldis ${isMe && "text-end"}`}>
                 {message.user.username}
               </p>{" "}
-              {message.content}
+              <p
+                className={`${
+                  isUrl(message.content).url && "underline hover:no-underline cursor-pointer text-blue-500"
+                }`}
+              >
+                {isUrl(message.content).content}
+              </p>
               <p className={`text-[9px] lg:text-[11px] text-primary font-light ${!isMe && "text-end"}`}>
                 {localeDate(message.created_at as string)}
               </p>{" "}
