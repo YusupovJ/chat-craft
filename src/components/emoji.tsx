@@ -8,16 +8,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface IEmojiProps {
   setContent: Dispatch<SetStateAction<string>>;
 }
 
 export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
-  let [indexEmoji, setIndexEmoji] = useState(0);
-
-  const emoji = [
+  const emojiList = [
     ":/",
     ":>",
     ":D",
@@ -48,30 +46,113 @@ export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
     ">:-)",
     ">:-(",
     ">:-D",
+    "(^ ω ^)",
+    "(´ ∀ `)",
+    "٩(◕‿◕｡)۶",
+    "(o^▽^o)",
+    "(⌒▽⌒)☆",
+    "<(￣︶￣)>",
+    "ヽ(・∀・)ﾉ",
+    "(´｡• ω •｡`)",
+    "(￣ω￣)",
+    "(o･ω･o)",
+    "(＠＾◡＾)",
+    "ヽ(*・ω・)ﾉ",
+    "(^人^)",
+    "(o´▽`o)",
+    "(*´▽`*)",
+    "｡ﾟ( ﾟ^∀^ﾟ)ﾟ｡",
+    "(´ ω `)",
+    "(o(*°▽°*)o)",
+    "(≧◡≦)",
+    "(o´∀`o)",
+    "(´• ω •`)",
+    "(＾▽＾)",
+    "(⌒ω⌒)",
+    "∑d(°∀°d)",
+    "╰(▔∀▔)╯",
+    "(─‿‿─)",
+    "(*^‿^*)",
+    "ヽ(o^ ^o)ﾉ",
+    "(✯◡✯)",
+    "(◕‿◕)",
+    "(*≧ω≦*)",
+    "(☆▽☆)",
+    "(⌒‿⌒)",
+    "ヽ(o＾▽＾o)ノ",
+    "☆ ～('▽^人)",
+    "(*°▽°*)",
+    "٩(｡•́‿•̀｡)۶",
+    "(✧ω✧)",
+    "ヽ(*⌒▽⌒*)ﾉ",
+    "(´｡• ᵕ •｡`)",
+    "( ´ ▽ ` )",
+    "(￣▽￣)",
+    "╰(*´︶`*)╯",
+    "ヽ(>∀<☆)ノ",
+    "o(≧▽≦)o",
+    "(☆ω☆)",
+    "(っ˘ω˘ς )",
+    "＼(￣▽￣)／",
+    "(*¯︶¯*)",
+    "＼(＾▽＾)／",
+    "٩(◕‿◕)۶",
+    "(o˘◡˘o)",
+    "\\(★ω★)/",
+    "\\(^ヮ^)/",
+    "(〃＾▽＾〃)",
+    "(╯✧▽✧)╯",
+    "o(>ω<)o",
+    "o(❛ᴗ❛)o",
+    "｡ﾟ(TヮT)ﾟ｡",
+    "(‾́ ◡ ‾́ )",
+    "(ﾉ´ヮ`)ﾉ*: ･ﾟ",
+    "(b ᵔ▽ᵔ)b",
+    "(๑˃ᴗ˂)ﻭ",
+    "(๑˘︶˘๑)",
+    "◝(⁰▿⁰)◜",
+    "(･ᴗ･)",
+    "(ﾉ◕ヮ◕)ﾉ",
+    "(„• ֊ •„)",
+    "(.❛ ᴗ ❛.)",
+    "(⁀ᗢ⁀)",
+    "(￢‿￢)",
+    "(¬‿¬ )",
+    "(*￣▽￣)b",
+    "(˙▿˙)",
+    "(¯▿¯)",
+    "( ◕▿◕ )",
+    "＼(٥⁀▽⁀ )／",
+    "(„• ᴗ •„)",
+    "(ᵔ◡ᵔ)",
+    "(๑>◡<๑)",
+    "(= ⩊ =)",
+    "⸜(´ ꒳ `)⸝",
+    "⸜(⸝⸝⸝´꒳`⸝⸝⸝)⸝",
+    "⸜(*ˊᗜˋ*)⸝",
+    "⸜(*ˊᵕˋ*)⸝",
   ];
 
-  useEffect(() => {
-    setInterval(() => {
-      setIndexEmoji(Math.round(Math.random() * emoji.length));
-    }, 3000);
-  }, []);
+  const selectEmoji = (emoji: string) => {
+    setContent((el) => (el += emoji));
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="max-w-[60px] min-w-[60px] border-2 border-gray-300">
-          {emoji[indexEmoji]}
+        <Button variant="outline" className="max-w-[30px] min-w-[30px] border-2 border-gray-300">
+          :)
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>смайлики</DropdownMenuLabel>
+      <DropdownMenuContent className="max-h-[500px] overflow-auto">
+        <DropdownMenuLabel>Смайлики</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup className="grid grid-cols-5 gap-4">
-          {emoji.map((emoji) => (
+        <DropdownMenuRadioGroup className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {emojiList.map((emoji) => (
             <DropdownMenuRadioItem
-              onClick={() => setContent((el) => (el += emoji))}
+              onClick={() => selectEmoji(emoji)}
               key={emoji}
-              className="hover:bg-gray-100 py-3 px-auto cursor-pointer"
+              className="hover:bg-gray-100 p-0 py-3 px-2 cursor-pointer flex justify-center"
               value="top"
             >
               {emoji}

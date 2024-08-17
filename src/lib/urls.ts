@@ -12,6 +12,6 @@ export const urls = {
     create: "/chat",
   },
   message: {
-    getAll: (chatId: string) => `/message?chatId=${chatId}&limit=50`,
+    getAll: (chatId: string, page: number) => `/message?chatId=${chatId}&limit=50&page=${page}`,
   },
 };
