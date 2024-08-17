@@ -3,6 +3,7 @@ import Avatars from "./avatars";
 import { cn } from "@/lib/utils";
 import Message from "./message";
 import { IMessage, IUser } from "@/types";
+import { stiker } from "./stiker";
 
 interface Props {
   messages: IMessage[];
@@ -21,13 +22,6 @@ const MessageList: FC<Props> = ({ messages, me }) => {
       {messages.map((message) => {
         const isMe = me.id === message.user.id;
 
-        const isUrl = (msg: string) => {
-          if (msg.includes("http://") || msg.includes("https://")) {
-            return { content: msg, url: true };
-          }
-          return { content: msg, url: false };
-        };
-
         return (
           <div className={cn("flex gap-3 sm:gap-6 items-end", isMe && "flex-row-reverse")} key={message.id}>
             <Avatars index={message.user.avatar} />
@@ -36,18 +30,25 @@ const MessageList: FC<Props> = ({ messages, me }) => {
               <p className={`text-[11px] lg:text-[13px] text-primary font-boldis ${isMe && "text-end"}`}>
                 {message.user.username}
               </p>{" "}
-              <p
-                className={`${
-                  isUrl(message.content).url && "underline hover:no-underline cursor-pointer text-blue-500"
-                }`}
-              >
-                {isUrl(message.content).url ? (
-                  <a href={isUrl(message.content).content} target="_blank">
-                    {isUrl(message.content).content}
-                  </a>
-                ) : (
-                  isUrl(message.content).content
-                )}
+              <p className="gap-2 flex flex-wrap">
+                {message.content.split(" ").map((word) => {
+                  const isUrl = word.startsWith("https://") || word.startsWith("http://");
+
+                  if (/^@[0-9]$|^@1[0-9]$|^@19$/.test(word)) {
+                    return (
+                      <img src={`${stiker[+message.content.slice(1, 3)].url}`} className="block m-auto" alt="stiker" />
+                    );
+                  }
+
+                  if (isUrl)
+                    return (
+                      <a href={word} target="_blank" className="text-blue-500 underline">
+                        {word}
+                      </a>
+                    );
+
+                  return <span>{word}</span>;
+                })}
               </p>
               <p className={`text-[9px] lg:text-[11px] text-primary font-light ${!isMe && "text-end"}`}>
                 {localeDate(message.created_at)}

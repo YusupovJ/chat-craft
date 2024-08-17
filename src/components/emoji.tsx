@@ -141,7 +141,7 @@ export function EmojiDropdownMenu({ setContent }: IEmojiProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="max-w-[30px] min-w-[30px] border-2 border-gray-300">
-          :)
+          {":)"}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="max-h-[500px] overflow-auto">
