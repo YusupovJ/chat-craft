@@ -6,25 +6,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { api } from "@/lib/api";
-import { removeToken } from "@/lib/tokens";
+import { delLocalStorage } from "@/lib/utils";
 import { urls } from "@/lib/urls";
 import { useAuthStore } from "@/store/auth";
 import { ChevronDown } from "lucide-react";
 
 export function DropdownMenuRadioGroupDemo({ name }: { name: string | undefined }) {
-  const updateAccessToken = useAuthStore((state) => state.updateAccessToken);
-  const updateRefreshToken = useAuthStore((state) => state.updateRefreshToken);
+  const { setIsAuthenticated, setUser } = useAuthStore();
 
   const handelLogout = async () => {
     try {
-      await api.post(`${urls.auth.logout}`);
-      removeToken();
-      updateAccessToken(undefined);
-      updateRefreshToken(undefined);
+      await api.post(urls.auth.logout);
+      delLocalStorage("accessToken", "refreshToken");
+      setIsAuthenticated(false);
+      setUser(null);
     } catch (error: unknown) {
       console.log(error);
     }
   };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -8,18 +8,18 @@ import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
-import { IApiReponse, IChat } from "@/types";
+import { IChat } from "@/types";
 
 const NewChat = () => {
   const [name, setName] = useState<string>("");
   const navigate = useNavigate();
-  const isAuth = useAuthStore((state) => state.accessToken);
+  const { isAuthenticated } = useAuthStore();
   const [open, setOpen] = useState(false);
 
   const createChat = async () => {
     if (name) {
       try {
-        const res = await api.post<any, IApiReponse<IChat>>(urls.chat.create, { name });
+        const res = await api.post<IChat>(urls.chat.create, { name });
         navigate(`/chat/${res.data.id}`);
       } catch (error) {
         console.log(error);
@@ -33,14 +33,14 @@ const NewChat = () => {
   };
 
   const checkAuth = () => {
-    if (!isAuth) {
+    if (!isAuthenticated) {
       setOpen(false);
       toast.error("Пройдите регистрацию");
     }
   };
 
   return (
-    <Dialog open={Boolean(open && isAuth)} onOpenChange={setOpen}>
+    <Dialog open={Boolean(open && isAuthenticated)} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button onClick={checkAuth}>
           <GitPullRequestCreateArrow />

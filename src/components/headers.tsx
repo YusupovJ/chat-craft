@@ -1,6 +1,5 @@
 import Container from "./container";
 import Logo from "../assets/logo.svg?react";
-import { getToken } from "@/lib/tokens";
 import { memo } from "react";
 import Avatars from "./avatars";
 import { DropdownMenuRadioGroupDemo } from "./dropdown";
@@ -8,9 +7,7 @@ import Login from "./login";
 import { useAuthStore } from "@/store/auth";
 
 const Headers = () => {
-  const avatar = useAuthStore((state) => state.avatar);
-  const username = useAuthStore((state) => state.username);
-  const accessToken = useAuthStore((state) => state.accessToken);
+  const { user, isAuthenticated } = useAuthStore();
 
   return (
     <div className=" bg-[rgb(22,163,74)] z-10 backdrop-blur-md p-5 rounded-lg fixed top-0 left-0 right-0">
@@ -19,12 +16,12 @@ const Headers = () => {
           <Logo />
           <h1 className="font-bold text-white text-[14px] lg:text-[18px]">Craft_Chat</h1>
         </div>
-        {getToken("accessToken") && accessToken ? (
+        {isAuthenticated ? (
           <div className="flex items-center space-x-3">
             <span className="hidden lg:flex">
-              <Avatars index={avatar || 2} />
+              <Avatars index={user?.avatar || 2} />
             </span>
-            <DropdownMenuRadioGroupDemo name={username} />
+            <DropdownMenuRadioGroupDemo name={user?.username} />
           </div>
         ) : (
           <Login />

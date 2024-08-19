@@ -7,36 +7,30 @@ import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
 import { useAuthStore } from "@/store/auth";
 import { toast } from "sonner";
-import { getToken } from "@/lib/tokens";
-import { IApiReponse, IMessage } from "@/types";
+import { IMessage } from "@/types";
 
 const Chat = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuthStore();
 
-  const isAuth = useAuthStore((state) => state.accessToken);
-  const userId = useAuthStore((state) => state.id);
-  const username = useAuthStore((state) => state.username);
-  const avatar = useAuthStore((state) => state.avatar);
-  const accessToken = getToken("accessToken");
-
-  const [messages, setMessages] = useState<IMessage[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [scrolledToTop, setScrolledToTop] = useState(false);
   const [allowScroll, setAllowScroll] = useState(true);
+  const [scrolledToTop, setScrolledToTop] = useState(false);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
   useEffect(() => {
-    if (!isAuth && !accessToken) {
+    if (!isAuthenticated) {
       toast.error("Пройдите регистрацию");
       navigate("/");
     }
-  }, [isAuth, accessToken]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (id && page <= totalPages) {
       api
-        .get<any, IApiReponse<IMessage[]>>(urls.message.getAll(id, page))
+        .get<IMessage[]>(urls.message.getAll(id, page))
         .then((res) => {
           setMessages([...res.data.reverse(), ...messages]);
           setTotalPages(res.pagination?.totalPages || 1);
@@ -64,7 +58,7 @@ const Chat = () => {
   return (
     <main className="bg-gray-200 min-h-[100svh] px-4 pb-20 pt-5">
       <ChatInfo />
-      <MessageList messages={messages} me={{ id: userId, username, avatar }} />
+      <MessageList messages={messages} me={user} />
       <WriteMessage
         setMessages={setMessages}
         messages={messages}

@@ -2,16 +2,13 @@ export interface IMe {
   username: string;
   avatar: number;
   id: number;
-  refreshToken: string | undefined;
-  accessToken: string | undefined;
 }
 
 export interface IAuthStore {
-  updateUser: (username: IMe["username"]) => void;
-  updateAvatar: (avatar: IMe["avatar"]) => void;
-  updateId: (id: IMe["id"]) => void;
-  updateRefreshToken: (token: IMe["refreshToken"]) => void;
-  updateAccessToken: (token: IMe["accessToken"]) => void;
+  user: IMe | null;
+  isAuthenticated: boolean;
+  setUser: (user: IMe | null) => void;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 
 export interface IPagination {
@@ -36,15 +33,15 @@ export interface IChat {
   updated_at: string;
 }
 
-export interface IUser {
-  id: number;
-  username: string;
-  avatar: number;
-}
-
 export interface IMessage {
   id: number;
   content: string;
-  user: IUser;
+  user: IMe;
   created_at: string;
+  updated_at: string;
+}
+
+export interface ITokens {
+  accessToken: string;
+  refreshToken: string;
 }

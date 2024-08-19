@@ -2,7 +2,8 @@ import axios from "axios";
 import { api } from "./api";
 import { baseURL, urls } from "./urls";
 import { toast } from "sonner";
-import { storageAccessToken, storageRefreshToken } from "./tokens";
+import { getLocalStorage, setLocalStorage } from "./utils";
+import { IApiReponse, ITokens } from "@/types";
 
 export const errorInterceptor = async (error: any) => {
   const originalConfig = error.config;
@@ -11,21 +12,21 @@ export const errorInterceptor = async (error: any) => {
     return Promise.reject(new Error("Network Error"));
   }
 
-  const accessToken = window.localStorage.getItem("accessToken");
-  const refreshToken = window.localStorage.getItem("refreshToken");
+  const accessToken = getLocalStorage("accessToken");
+  const refreshToken = getLocalStorage("refreshToken");
 
   if (accessToken || refreshToken) {
     if (error?.response?.status === 401 && !originalConfig.isRetry) {
       originalConfig.isRetry = true;
 
-      const response = await axios.post(baseURL + urls.auth.refresh, {
+      const response = await axios.post<IApiReponse<ITokens>>(baseURL + urls.auth.refresh, {
         refreshToken,
       });
 
       const tokens = response.data.data;
 
-      storageAccessToken(tokens.accessToken);
-      storageRefreshToken(tokens.refreshToken);
+      setLocalStorage("accessToken", tokens.accessToken);
+      setLocalStorage("refreshToken", tokens.refreshToken);
 
       return api.request(originalConfig);
     }

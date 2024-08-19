@@ -1,5 +1,5 @@
 import Container from "./container";
-import steve from "../assets/minecraft-realms-minecraft-6.png";
+import alex from "../assets/alex.png";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import bgImage from "../assets/bg-main.jpg";
@@ -49,7 +49,7 @@ const Home = () => {
             <img
               loading="lazy"
               className="animate-[zoom_1s_ease-in-out_1] origin-bottom-left"
-              src={steve}
+              src={alex}
               width="100%"
               alt="alex"
             />

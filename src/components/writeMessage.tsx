@@ -21,7 +21,7 @@ const socket = io(import.meta.env.VITE_BASEURL);
 const WriteMessage: FC<IProps> = ({ setMessages, messages, page, setAllowScroll, allowScroll }) => {
   const [content, setContent] = useState("");
   const { id } = useParams();
-  const userId = useAuthStore((state) => state.id);
+  const userId = useAuthStore((state) => state.user?.id);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
