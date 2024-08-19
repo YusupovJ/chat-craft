@@ -12,9 +12,9 @@ interface Props {
 
 const sticketRegExp = /^@[0-9]$|^@1[0-9]$|^@19$/;
 
-const genLink = (word: string) => {
+const genLink = (word: string, key: string | number) => {
   return (
-    <a href={word} target="_blank" className="text-blue-500 underline">
+    <a href={word} key={key} target="_blank" className="text-blue-500 underline">
       {word}
     </a>
   );
@@ -29,19 +29,26 @@ const Message: FC<Props> = ({ className, isMe, message }) => {
         className
       )}
     >
-      <p className={cn("text-[11px] lg:text-[13px] text-primary font-boldis", isMe && "text-end")}>
+      <p className={cn("text-[11px] lg:text-[13px] text-primary font-bold", isMe && "text-end")}>
         {message.user.username}
       </p>
       <p className="gap-2 flex flex-wrap">
-        {message.content.split(" ").map((word) => {
+        {message.content.split(" ").map((word, index) => {
           if (sticketRegExp.test(word)) {
-            return <img src={stiker[+message.content.slice(1, 3)].url} className="block m-auto" alt="stiker" />;
+            return (
+              <img
+                key={index}
+                src={stiker[+message.content.slice(1, 3)].url}
+                className="block m-auto w-96 h-96"
+                alt="stiker"
+              />
+            );
           }
 
           const isUrl = word.startsWith("https://") || word.startsWith("http://");
-          if (isUrl) return genLink(word);
+          if (isUrl) return genLink(word, index);
 
-          return <span>{word}</span>;
+          return <span key={index}>{word}</span>;
         })}
       </p>
       <p className={`text-[9px] lg:text-[11px] text-primary font-light ${!isMe && "text-end"}`}>

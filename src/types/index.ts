@@ -29,6 +29,7 @@ export interface IApiReponse<T> {
 export interface IChat {
   id: string;
   name: string;
+  messages: IMessage[];
   created_at: string;
   updated_at: string;
 }

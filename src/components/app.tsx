@@ -11,6 +11,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/chat/:id" element={<Chat />} />
+        <Route path="/chat" element={<Chat unselected />} />
       </Routes>
     </AuthProvider>
   );

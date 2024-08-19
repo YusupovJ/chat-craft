@@ -83,6 +83,6 @@ input[type="search"]::-webkit-search-decoration {
   appearance: none;
 }
 
-.left-scroll {
+.scroll-margin {
   margin-right: var(--removed-body-scroll-bar-size) !important;
 }
