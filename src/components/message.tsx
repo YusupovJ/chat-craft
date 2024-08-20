@@ -1,16 +1,13 @@
-import { stiker } from "@/lib/stiker";
+import { sticketRegExp, stiker } from "@/lib/stiker";
 import { cn, localeDate } from "@/lib/utils";
 import { IMessage } from "@/types";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
 interface Props {
-  children?: ReactNode;
   className?: string;
   isMe?: boolean;
   message: IMessage;
 }
-
-const sticketRegExp = /^@[0-9]$|^@1[0-9]$|^@19$/;
 
 const genLink = (word: string, key: string | number) => {
   return (

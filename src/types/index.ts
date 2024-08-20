@@ -38,6 +38,7 @@ export interface IMessage {
   id: number;
   content: string;
   user: IMe;
+  chat: IChat;
   created_at: string;
   updated_at: string;
 }

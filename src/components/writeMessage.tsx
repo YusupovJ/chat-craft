@@ -7,14 +7,16 @@ import { useParams } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
 import { EmojiDropdownMenu } from "./emoji";
 import { IMessage } from "@/types";
+import { isAtBottom } from "@/lib/utils";
 
 interface IProps {
-  setMessages: Dispatch<SetStateAction<IMessage[]>>;
+  setNewMessages: Dispatch<SetStateAction<IMessage[]>>;
+  setIsAtBottom: Dispatch<SetStateAction<boolean>>;
 }
 
 const socket = io(import.meta.env.VITE_BASEURL);
 
-const WriteMessage: FC<IProps> = ({ setMessages }) => {
+const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
   const [content, setContent] = useState("");
   const { id } = useParams();
   const userId = useAuthStore((state) => state.user?.id);
@@ -24,7 +26,8 @@ const WriteMessage: FC<IProps> = ({ setMessages }) => {
     socket.emit("joinRoom", { chatId: id, userId });
 
     socket.on("reply", (msg) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
+      setNewMessages((prevMessages) => [...prevMessages, msg]);
+      setIsAtBottom(isAtBottom());
     });
 
     return () => {
