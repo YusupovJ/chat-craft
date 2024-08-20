@@ -47,7 +47,7 @@ const Chat: FC<Props> = ({ unselected }) => {
 
   return (
     <div className="flex relative">
-      <ChatList />
+      <ChatList className={cn(unselected ? "basis-full" : "hidden lg:block")} />
       <main
         className={cn("bg-gray-300 min-h-[100svh] relative grow", unselected && "flex items-center justify-center")}
       >
@@ -58,7 +58,7 @@ const Chat: FC<Props> = ({ unselected }) => {
             <WriteMessage setMessages={setMessages} />
           </>
         ) : (
-          <p className="bg-white inline-block p-2 font-bold">Выберите чат для общения</p>
+          <p className="bg-white hidden lg:inline-block p-2 font-bold">Выберите чат для общения</p>
         )}
       </main>
     </div>

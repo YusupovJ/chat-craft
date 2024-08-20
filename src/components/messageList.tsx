@@ -11,7 +11,7 @@ interface Props {
 
 const MessageList: FC<Props> = ({ messages, me }) => {
   return (
-    <div className="flex flex-col gap-10 sm:gap-6 min-h-[calc(100vh-72px-56px)] py-2 px-4">
+    <div className="flex flex-col gap-10 sm:gap-6 min-h-[calc(100vh-72px-56px)] py-2 px-4 bg-gray-300">
       {messages.map((message) => {
         const isMe = me?.id === message.user.id;
 

@@ -75,3 +75,15 @@ export const shareLink = async () => {
     console.log("http copy", error);
   }
 };
+
+/* Scroll utils */
+
+export const scrollToBottom = (behavior?: "smooth" | "instant") => {
+  const { body } = document;
+  const bottomCords = body.scrollHeight;
+
+  window.scrollTo({
+    top: bottomCords,
+    behavior: behavior || "smooth",
+  });
+};

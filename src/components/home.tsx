@@ -5,12 +5,20 @@ import { Input } from "./ui/input";
 import bgImage from "../assets/bg-main.jpg";
 import Headers from "./headers";
 import NewChat from "./newChat";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "@/store/auth";
 
 const Home = () => {
   const [chatId, setChatId] = useState("");
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/chat");
+    }
+  }, [isAuthenticated]);
 
   return (
     <>

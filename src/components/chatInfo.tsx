@@ -23,7 +23,7 @@ const ChatInfo: FC<Props> = () => {
   }, [id]);
 
   const leave = () => {
-    navigate("/");
+    navigate("/chat");
   };
 
   return (
