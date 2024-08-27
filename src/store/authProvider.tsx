@@ -26,7 +26,11 @@ const AuthProvider: FC<Props> = ({ children }) => {
           setIsAuthenticated(false);
           setUser(null);
         });
+
+      return;
     }
+
+    setIsAuthenticated(false);
   }, [accessToken, isAuthenticated]);
 
   return children;

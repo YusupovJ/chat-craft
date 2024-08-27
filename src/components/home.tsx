@@ -12,13 +12,13 @@ import { useAuthStore } from "@/store/auth";
 const Home = () => {
   const [chatId, setChatId] = useState("");
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuthStore();
+  const { user } = useAuthStore();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       navigate("/chat");
     }
-  }, [isAuthenticated]);
+  }, [user]);
 
   return (
     <>

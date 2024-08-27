@@ -50,14 +50,14 @@ const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
   };
 
   return (
-    <div className="sticky flex bg-white pb-3 pt-2 bottom-0 left-0 w-full px-2 space-x-2">
+    <div className="sticky flex bg-background py-2 bottom-0 left-0 w-full px-2 space-x-2">
       <Input
         placeholder="Сообщение"
         ref={inputRef}
         type="search"
         id="input-message"
         autoComplete="off"
-        className="rounded-none border-2 border-gray-300"
+        className="rounded-none border-2"
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={(e) => {
           if (e.code === "Enter") {
@@ -67,11 +67,7 @@ const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
         value={content}
       />
       <EmojiDropdownMenu setContent={setContent} />
-      <Button
-        className="rounded-none flex gap-2 items-center scroll-margin"
-        onClick={sendMessage}
-        aria-label="Отправить сообщение"
-      >
+      <Button className="rounded-none flex gap-2 items-center" onClick={sendMessage} aria-label="Отправить сообщение">
         <p className="hidden md:block">Отправить сообщение</p> <Send />
       </Button>
     </div>

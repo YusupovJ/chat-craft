@@ -40,7 +40,6 @@ const Chat: FC<Props> = ({ unselected }) => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      toast.error("Пройдите регистрацию");
       navigate("/");
     }
   }, [isAuthenticated]);
@@ -93,13 +92,15 @@ const Chat: FC<Props> = ({ unselected }) => {
 
   return (
     <div className="flex relative">
-      <ChatList
-        className={unselected ? "basis-full" : "hidden lg:block"}
-        lastNewMessage={newMessages[newMessages.length - 1]}
-      />
-      <main
-        className={cn("bg-gray-300 min-h-[100svh] relative grow", unselected && "flex items-center justify-center")}
+      <aside
+        className={cn(
+          "sticky lg:basis-[300px] top-0 left-0 max-h-screen flex flex-col",
+          unselected ? "basis-full" : "hidden lg:flex"
+        )}
       >
+        <ChatList lastNewMessage={newMessages[newMessages.length - 1]} />
+      </aside>
+      <main className={cn("bg-muted min-h-[100svh] relative grow", unselected && "flex items-center justify-center")}>
         {!unselected ? (
           <>
             <ChatInfo />
@@ -108,7 +109,7 @@ const Chat: FC<Props> = ({ unselected }) => {
             <WriteMessage setNewMessages={setNewMessages} setIsAtBottom={setIsAtBottom} />
           </>
         ) : (
-          <p className="bg-white hidden lg:inline-block p-2 font-bold">Выберите чат для общения</p>
+          <p className="bg-background hidden lg:inline-block p-2 font-bold">Выберите чат для общения</p>
         )}
       </main>
     </div>

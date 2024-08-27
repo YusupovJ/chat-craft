@@ -66,12 +66,10 @@ function Login() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="flex items-center bg-white cursor-pointer px-3 py-2 lg:py-0 rounded-md">
+        <Button variant="outline" className="hidden lg:flex py-0 gap-2">
           <LogInIcon />
-          <Button variant="ghost" className="hidden lg:flex py-0">
-            Войти
-          </Button>
-        </div>
+          Войти
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

@@ -28,7 +28,7 @@ const MessageList: FC<Props> = ({ messages, className, setPage }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={cn("flex flex-col gap-10 sm:gap-6 py-2 px-4 bg-gray-300", className)}>
+    <div ref={containerRef} className={cn("flex flex-col gap-10 sm:gap-6 py-2 px-4 bg-muted", className)}>
       {messages.map((message, index) => {
         const isMe = user?.id === message.user.id;
 

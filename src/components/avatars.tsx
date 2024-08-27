@@ -19,7 +19,7 @@ const Avatars: FC<Props> = ({ index, className }) => {
   return (
     <img
       src={avatarList[index]}
-      className={cn("w-8 h-8 shadow-md shadow-gray-400", className)}
+      className={cn("w-8 h-8 shadow-md shadow-muted", className)}
       alt={`Avatar ${index + 1}`}
     />
   );

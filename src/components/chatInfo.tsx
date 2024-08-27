@@ -27,7 +27,7 @@ const ChatInfo: FC<Props> = () => {
   };
 
   return (
-    <div className="sticky flex bg-primary justify-between items-center py-4 top-0 left-0 w-full px-4 shadow-md shadow-gray-500 scroll-margin">
+    <div className="sticky flex bg-primary justify-between items-center py-4 top-0 left-0 w-full px-4 shadow-md shadow-muted scroll-margin">
       <h2 className="font-bold text-white">{chat?.name}</h2>
       <div className="flex gap-4">
         <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={shareLink}>
