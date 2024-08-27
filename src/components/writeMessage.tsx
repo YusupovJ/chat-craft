@@ -50,7 +50,7 @@ const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
   };
 
   return (
-    <div className="sticky flex bg-white py-2 bottom-0 left-0 w-full px-2 space-x-2">
+    <div className="sticky flex bg-white pb-3 pt-2 bottom-0 left-0 w-full px-2 space-x-2">
       <Input
         placeholder="Сообщение"
         ref={inputRef}

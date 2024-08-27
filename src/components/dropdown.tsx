@@ -20,7 +20,7 @@ export function DropdownMenuRadioGroupDemo({ name }: { name: string | undefined 
       delLocalStorage("accessToken", "refreshToken");
       setIsAuthenticated(false);
       setUser(null);
-    } catch (error: unknown) {
+    } catch (error) {
       console.log(error);
     }
   };
