@@ -17,7 +17,7 @@
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
+    --accent: 0 0% 90%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -46,7 +46,7 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 15%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 12 6.5% 15.1%;
+    --accent: 0 0% 7%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
@@ -71,13 +71,25 @@
   }
 }
 
+body[data-scroll-locked] {
+  overflow: hidden !important;
+  overscroll-behavior: contain;
+  position: relative !important;
+  padding-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: var(--removed-body-scroll-bar-size);
+}
+
 body {
   font-family: "Roboto Mono", monospace;
 }
 
-/* ::selection {
+::selection {
   background-color: var(--primary-opacity);
-} */
+}
 
 /* Remove search clear button in input */
 
@@ -97,16 +109,16 @@ input[type="search"]::-webkit-search-decoration {
   margin-right: var(--removed-body-scroll-bar-size) !important;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--border));
+  background: hsl(var(--accent));
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: hsl(var(--primary));
   border-radius: 20px;
-  border: 3px solid hsl(var(--border));
-} */
+  border: 3px solid hsl(var(--accent));
+}

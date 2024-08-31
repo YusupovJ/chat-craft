@@ -11,6 +11,7 @@ import { IMessage } from "@/types";
 import ChatList from "./chatList";
 import { cn, scrollToBottom } from "@/lib/utils";
 import { MESSAGE_LIMIT } from "@/lib/constants";
+import Sidebar from "./sidebar";
 
 interface Props {
   unselected?: boolean;
@@ -94,11 +95,12 @@ const Chat: FC<Props> = ({ unselected }) => {
     <div className="flex relative">
       <aside
         className={cn(
-          "sticky lg:basis-[300px] top-0 left-0 max-h-screen flex flex-col",
+          "sticky lg:basis-[400px] top-0 left-0 max-h-screen flex",
           unselected ? "basis-full" : "hidden lg:flex"
         )}
       >
-        <ChatList lastNewMessage={newMessages[newMessages.length - 1]} />
+        <Sidebar className="shrink-0 grow-0 basis-20 bg-accent" />
+        <ChatList className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
       </aside>
       <main className={cn("bg-muted min-h-[100svh] relative grow", unselected && "flex items-center justify-center")}>
         {!unselected ? (

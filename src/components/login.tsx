@@ -1,16 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { LogInIcon } from "lucide-react";
 import { useState } from "react";
 import Avatars from "./avatars";
 import { toast } from "sonner";
@@ -19,6 +8,8 @@ import { urls } from "@/lib/urls";
 import { useAuthStore } from "@/store/auth";
 import { setLocalStorage } from "@/lib/utils";
 import { ITokens } from "@/types";
+import { ModalContent, ModalFooter, ModalHeader } from "./ui/modal";
+import { useModalStore } from "@/store/modal";
 
 function Login() {
   const [name, setName] = useState("");
@@ -26,6 +17,7 @@ function Login() {
   const [avatar, setAvatarIndex] = useState(2);
   const [auth, setAuth] = useState("login");
   const { setIsAuthenticated } = useAuthStore();
+  const closeModal = useModalStore((state) => state.closeModal.bind(null, "auth"));
 
   const handlerLogin = async () => {
     if (name && password) {
@@ -64,58 +56,54 @@ function Login() {
   const avatarArray = [0, 1, 2, 3, 4, 5, 6];
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="hidden lg:flex py-0 gap-2">
-          <LogInIcon />
-          Войти
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>{auth === "signin" ? "Создать" : "Войти"}</DialogTitle>
-        </DialogHeader>
-        <DialogDescription className="hidden">eee</DialogDescription>
+    <>
+      <ModalHeader>
+        <h2>{auth === "signin" ? "Создать" : "Войти"}</h2>
+      </ModalHeader>
+
+      <ModalContent className="gap-3 flex flex-col">
         <div className="grid flex-1 gap-2">
           <Input type="text" onChange={(e) => setName(e.target.value)} placeholder="Имя" />
         </div>
         <div className="grid flex-1 gap-2">
           <Input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
         </div>
-        <div className={`${auth === "signin" ? "flex" : "hidden"} justify-between items-center`}>
-          {avatarArray.map((el) => (
-            <span key={el} onClick={() => setAvatarIndex(el)}>
-              <Avatars
-                index={el}
-                className={`${
-                  avatar === el ? "shadow-green-600  shadow-lg transform: scale-150 transition-all" : ""
-                } cursor-pointer`}
-              />
-            </span>
-          ))}
-        </div>
-        <DialogFooter className="items-center">
-          <p className="text-sm mr-2 mt-3 sm:mt-0">
-            <span
-              className="text-green-500 hover:underline cursor-pointer"
-              onClick={() => (auth === "signin" ? setAuth("login") : setAuth("signin"))}
-            >
-              {auth === "signin" ? "Войти в" : "Создать"}
-            </span>{" "}
-            аккаунт
-          </p>
-          <DialogClose asChild>
-            <Button
-              onClick={() => [auth === "signin" ? handlerSignUp() : handlerLogin()]}
-              type="button"
-              variant="default"
-            >
-              {auth === "signin" ? "Зарегистрироваться" : "Войти"}
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+
+        {auth === "signin" && (
+          <div className="flex justify-between items-center">
+            {avatarArray.map((el) => (
+              <span key={el} onClick={() => setAvatarIndex(el)}>
+                <Avatars
+                  index={el}
+                  className={`${
+                    avatar === el ? "shadow-green-600  shadow-lg transform: scale-150 transition-all" : ""
+                  } cursor-pointer`}
+                />
+              </span>
+            ))}
+          </div>
+        )}
+      </ModalContent>
+
+      <ModalFooter className="items-center gap-3">
+        <p className="text-sm mr-2 mt-3 sm:mt-0">
+          <span
+            className="text-green-500 hover:underline cursor-pointer"
+            onClick={() => (auth === "signin" ? setAuth("login") : setAuth("signin"))}
+          >
+            {auth === "signin" ? "Войти в" : "Создать"}
+          </span>{" "}
+          аккаунт
+        </p>
+        <Button
+          onClick={() => [auth === "signin" ? handlerSignUp() : handlerLogin(), closeModal()]}
+          type="button"
+          variant="default"
+        >
+          {auth === "signin" ? "Зарегистрироваться" : "Войти"}
+        </Button>
+      </ModalFooter>
+    </>
   );
 }
 

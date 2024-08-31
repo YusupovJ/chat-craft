@@ -4,21 +4,27 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import bgImage from "../assets/bg-main.jpg";
 import Headers from "./headers";
-import NewChat from "./newChat";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
+import { GitPullRequestCreateArrow } from "lucide-react";
+import { useModalStore } from "@/store/modal";
 
 const Home = () => {
   const [chatId, setChatId] = useState("");
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const { openModal } = useModalStore();
 
   useEffect(() => {
     if (user) {
       navigate("/chat");
     }
   }, [user]);
+
+  const openForm = () => {
+    openModal("auth");
+  };
 
   return (
     <>
@@ -29,7 +35,7 @@ const Home = () => {
         className="fixed top-0 left-0 w-full h-full z-[-1] sepia-[60%] object-cover"
       />
       <Headers />
-      <Container className="justify-center content-center">
+      <Container className="justify-center content-center mt-24">
         <div className="mt-40 md:mt-0 flex-col lg:flex-row flex items-center justify-center md:justify-between gap-5">
           <div className="max-w-[550px] bg-[rgba(0,0,0,0.2)] backdrop-blur-lg p-5 rounded-lg">
             <h1 className="font-bold text-xl md:text-3xl text-gray-200">
@@ -41,15 +47,19 @@ const Home = () => {
               глобального сообщества, где каждый голос важен!
             </p>
             <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5">
-              <NewChat />
+              <Button onClick={openForm}>
+                <GitPullRequestCreateArrow />
+                <p className="ml-5">Начать</p>
+              </Button>
               <div className="flex space-x-1 w-full">
                 <Input
                   placeholder="Поиск встречи"
                   autoComplete="false"
                   onChange={(e) => setChatId(e.target.value)}
                   value={chatId}
+                  className="bg-input"
                 />
-                <Button onClick={() => navigate(`/chat/${chatId}`)}>поиск</Button>
+                <Button onClick={() => navigate(`/chat/${chatId}`)}>Поиск</Button>
               </div>
             </div>
           </div>

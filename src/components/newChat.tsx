@@ -1,5 +1,3 @@
-import { GitPullRequestCreateArrow } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useState } from "react";
@@ -7,14 +5,12 @@ import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { urls } from "@/lib/urls";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "@/store/auth";
 import { IChat } from "@/types";
+import { ModalContent, ModalFooter, ModalHeader } from "./ui/modal";
 
 const NewChat = () => {
   const [name, setName] = useState<string>("");
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuthStore();
-  const [open, setOpen] = useState(false);
 
   const createChat = async () => {
     if (name) {
@@ -32,30 +28,20 @@ const NewChat = () => {
     toast.error("Введите имя для группы");
   };
 
-  const checkAuth = () => {
-    if (!isAuthenticated) {
-      setOpen(false);
-      toast.error("Пройдите регистрацию");
-    }
-  };
-
   return (
-    <Dialog open={Boolean(open && isAuthenticated)} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button onClick={checkAuth}>
-          <GitPullRequestCreateArrow />
-          <p className="ml-5">Cоздать</p>
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="flex flex-col gap-6">
-        <DialogHeader>
-          <DialogTitle>Создать группу</DialogTitle>
-          <DialogDescription className="hidden"></DialogDescription>
-        </DialogHeader>
+    <>
+      <ModalHeader>
+        <h2>Создать группу</h2>
+      </ModalHeader>
+
+      <ModalContent className="flex flex-col gap-6">
         <Input placeholder="Имя группы" onChange={(e) => setName(e.target.value)} value={name} />
+      </ModalContent>
+
+      <ModalFooter>
         <Button onClick={createChat}>Создать</Button>
-      </DialogContent>
-    </Dialog>
+      </ModalFooter>
+    </>
   );
 };
 

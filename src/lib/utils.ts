@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 
 /* Local storage control */
 
-type TKeyLocalstorage = "accessToken" | "refreshToken";
+type TKeyLocalstorage = "accessToken" | "refreshToken" | "theme";
 
 export const getLocalStorage = (key: TKeyLocalstorage): string | null => {
   return localStorage.getItem(key);
@@ -94,4 +94,8 @@ export const isAtBottom = () => {
   const documentHeight = document.documentElement.scrollHeight;
 
   return scrollTop + windowHeight >= documentHeight;
+};
+
+export const scrollbarSize = () => {
+  return window.innerWidth - document.body.clientWidth;
 };
