@@ -1,8 +1,8 @@
-import { IModalStore, TModals } from "@/types";
+import { IModalStore } from "@/types";
 import { create } from "zustand";
 
 export const useModalStore = create<IModalStore>((set) => ({
   openModals: {},
-  openModal: (name: TModals) => set((state) => ({ openModals: { ...state.openModals, [name]: true } })),
-  closeModal: (name: TModals) => set((state) => ({ openModals: { ...state.openModals, [name]: false } })),
+  openModal: (name: string) => set((state) => ({ openModals: { ...state.openModals, [name]: true } })),
+  closeModal: (name: string) => set((state) => ({ openModals: { ...state.openModals, [name]: false } })),
 }));

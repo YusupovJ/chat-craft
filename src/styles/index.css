@@ -83,6 +83,16 @@ body[data-scroll-locked] {
   margin-right: var(--removed-body-scroll-bar-size);
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+}
+
+main {
+  flex: 1 1 auto;
+}
+
 body {
   font-family: "Roboto Mono", monospace;
 }

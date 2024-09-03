@@ -1,7 +1,8 @@
 import axios from "axios";
 import { baseURL } from "./urls";
-import { errorInterceptor } from "./errorIntercepters";
-import { getLocalStorage } from "./utils";
+import { getLocalStorage, setLocalStorage } from "./utils";
+import { toast } from "sonner";
+import { refresh } from "@/services/authService";
 
 export const api = axios.create({ baseURL });
 
@@ -16,8 +17,29 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (result) => {
-    return { ...result.data, config: result.config, headers: result.headers, statusText: result.statusText };
-  },
-  (error) => errorInterceptor(error)
+  ({ data, config, headers, statusText }) => ({ ...data, config, headers, statusText }),
+  async (error: any) => {
+    const originalConfig = error.config;
+    if (error.message === "Network Error") {
+      toast.error("Network error");
+      return Promise.reject(new Error("Network Error"));
+    }
+
+    const refreshToken = getLocalStorage("refreshToken");
+
+    if (refreshToken && error.response.status === 401 && !originalConfig.isRetry) {
+      originalConfig.isRetry = true;
+
+      const response = await refresh({ refreshToken });
+
+      const tokens = response.data;
+
+      setLocalStorage("accessToken", tokens.accessToken);
+      setLocalStorage("refreshToken", tokens.refreshToken);
+
+      return api.request(originalConfig);
+    }
+
+    return Promise.reject(error);
+  }
 );

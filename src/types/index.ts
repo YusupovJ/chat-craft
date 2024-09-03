@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 export interface IMe {
   username: string;
   avatar: number;
@@ -41,6 +43,27 @@ export interface ITokens {
   refreshToken: string;
 }
 
+export interface ILoginData {
+  username: string;
+  password: string;
+}
+
+export interface IRegisterData extends ILoginData {
+  avatar: number;
+}
+
+export interface IError {
+  error: string;
+  message: string;
+  statusCode: number;
+}
+
+export interface IRefreshData {
+  refreshToken: string;
+}
+
+export type TError = AxiosError<IError>;
+
 /* Store */
 
 export interface IAuthStore {
@@ -58,10 +81,8 @@ export interface IThemeStore {
   setThemeState: (theme: TTheme) => void;
 }
 
-export type TModals = "auth" | "userinfo" | "settings" | "newchat";
-
 export interface IModalStore {
   openModals: { [key: string]: boolean };
-  openModal: (name: TModals) => void;
-  closeModal: (name: TModals) => void;
+  openModal: (name: string) => void;
+  closeModal: (name: string) => void;
 }

@@ -56,7 +56,7 @@ export const Modal: FC<ModalProps> = ({
     >
       <div
         className={cn(
-          "relative bg-muted max-w-[400px] h-fit w-full rounded-lg shadow-lg transform transition-transform duration-300",
+          "relative bg-background max-w-[400px] h-fit w-full rounded-lg shadow-lg transform transition-transform duration-300",
           {
             "scale-100": isOpen,
             "scale-95": !isOpen,

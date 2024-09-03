@@ -3,53 +3,54 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Avatars from "./avatars";
 import { toast } from "sonner";
-import { api } from "@/lib/api";
-import { urls } from "@/lib/urls";
 import { useAuthStore } from "@/store/auth";
 import { setLocalStorage } from "@/lib/utils";
-import { ITokens } from "@/types";
 import { ModalContent, ModalFooter, ModalHeader } from "./ui/modal";
 import { useModalStore } from "@/store/modal";
+import { useSignIn, useSignUp } from "@/hooks/useAuth";
+import { onError } from "@/lib/onError";
 
 function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [avatar, setAvatarIndex] = useState(2);
+  const [avatar, setAvatar] = useState(2);
   const [auth, setAuth] = useState("login");
   const { setIsAuthenticated } = useAuthStore();
-  const closeModal = useModalStore((state) => state.closeModal.bind(null, "auth"));
+  const { closeModal } = useModalStore();
+  const { mutate: signIn } = useSignIn();
+  const { mutate: signUp } = useSignUp();
 
   const handlerLogin = async () => {
     if (name && password) {
-      try {
-        const { data } = await api.post<ITokens>(urls.auth.login, { username: name, password });
+      const values = { username: name, password };
 
-        setLocalStorage("accessToken", data.accessToken);
-        setLocalStorage("refreshToken", data.refreshToken);
+      signIn(values, {
+        onSuccess: (data) => {
+          setLocalStorage("accessToken", data.accessToken);
+          setLocalStorage("refreshToken", data.refreshToken);
 
-        setIsAuthenticated(true);
-        toast.success(`Вы успешно вошли в свой аккаунт`);
-      } catch (error) {
-        console.log(error);
-        toast.error("Пароль или логин неверны");
-      }
+          setIsAuthenticated(true);
+          closeModal("auth");
+          toast.success(`Вы успешно вошли в свой аккаунт`);
+        },
+        onError,
+      });
     }
   };
 
   const handlerSignUp = async () => {
     if (name && password) {
-      try {
-        const { data } = await api.post<ITokens>(urls.auth.signup, { username: name, password, avatar });
+      const values = { username: name, password, avatar };
+      signUp(values, {
+        onSuccess: (data) => {
+          setIsAuthenticated(true);
+          setLocalStorage("accessToken", data.accessToken);
+          setLocalStorage("refreshToken", data.refreshToken);
 
-        setIsAuthenticated(true);
-        setLocalStorage("accessToken", data.accessToken);
-        setLocalStorage("refreshToken", data.refreshToken);
-
-        toast.success(`вы успешно зарегистрировались`);
-      } catch (error: unknown) {
-        console.log(error);
-        toast.error("Пользователь уже существует");
-      }
+          toast.success(`вы успешно зарегистрировались`);
+        },
+        onError,
+      });
     }
   };
 
@@ -72,7 +73,7 @@ function Login() {
         {auth === "signin" && (
           <div className="flex justify-between items-center">
             {avatarArray.map((el) => (
-              <span key={el} onClick={() => setAvatarIndex(el)}>
+              <span key={el} onClick={() => setAvatar(el)}>
                 <Avatars
                   index={el}
                   className={`${
@@ -95,11 +96,7 @@ function Login() {
           </span>{" "}
           аккаунт
         </p>
-        <Button
-          onClick={() => [auth === "signin" ? handlerSignUp() : handlerLogin(), closeModal()]}
-          type="button"
-          variant="default"
-        >
+        <Button onClick={auth === "signin" ? handlerSignUp : handlerLogin} type="button" variant="default">
           {auth === "signin" ? "Зарегистрироваться" : "Войти"}
         </Button>
       </ModalFooter>
