@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { LogOut, Share2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { shareLink } from "@/lib/utils";

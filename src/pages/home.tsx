@@ -1,8 +1,8 @@
-import Container from "./container";
+import Container from "../components/container";
 import alex from "../assets/alex.png";
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import bgImage from "../assets/bg-main.jpg";
-import Headers from "./headers";
+import Headers from "../components/headers";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";

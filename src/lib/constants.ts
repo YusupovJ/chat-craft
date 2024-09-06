@@ -7,3 +7,4 @@ export const MESSAGES_KEY = "messages";
 
 export const CHAT_KEY = "chats";
 export const CHAT_ONE_KEY = "chat-one";
+export const CHAT_CREATE_KEY = "chat-create";

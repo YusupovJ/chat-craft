@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Chat from "./chat";
-import Home from "./home";
-import { Toaster } from "./ui/sonner";
+import Chat from "./pages/chat";
+import Home from "./pages/home";
+import { Toaster } from "./components/ui/sonner";
 import AuthProvider from "@/store/authProvider";
 import ThemeProvider from "@/store/themeProvider";
 import { useThemeStore } from "@/store/theme";
 import ModalProvider from "@/store/modalProvider";
-import NotFound from "./notFound";
+import NotFound from "./components/notFound";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();

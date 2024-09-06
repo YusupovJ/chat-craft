@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from "react";
-import Avatars from "./avatars";
+import Avatars from "../avatars";
 import { cn } from "@/lib/utils";
 import Message from "./message";
 import { IMessage } from "@/types";

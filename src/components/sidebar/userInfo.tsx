@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/store/auth";
-import Avatars from "./avatars";
-import { ModalContent, ModalHeader } from "./ui/modal";
+import Avatars from "../avatars";
+import { ModalContent, ModalHeader } from "../ui/modal";
 
 const UserInfo = () => {
   const { user } = useAuthStore();

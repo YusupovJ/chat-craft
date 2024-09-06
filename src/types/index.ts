@@ -92,3 +92,7 @@ export interface IModalStore {
   openModal: (name: string) => void;
   closeModal: (name: string) => void;
 }
+
+export interface ICreateChat {
+  name: string;
+}

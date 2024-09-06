@@ -1,11 +1,11 @@
 import { Send } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
-import { EmojiDropdownMenu } from "./emoji";
+import { EmojiDropdownMenu } from "./emoji/emoji";
 import { IMessage } from "@/types";
 import { isAtBottom } from "@/lib/utils";
 
