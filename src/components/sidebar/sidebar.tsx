@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import Logo from "@/assets/logo.svg?react";
-import { Button } from "./ui/button";
-import { Settings, User } from "lucide-react";
+import { Settings, User, MessageCirclePlus } from "lucide-react";
 import { useModalStore } from "@/store/modal";
+import { ButtonTooltip } from "@/lib/tooltip";
 
 interface Props {
   className?: string;
@@ -20,12 +20,15 @@ const Sidebar: FC<Props> = ({ className }) => {
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <Button onClick={() => openModal("userinfo")} variant="ghost">
-          <User stroke="inherit" size="32" />
-        </Button>
-        <Button variant="ghost">
+        <ButtonTooltip message={"создать новый чат"}>
+          <MessageCirclePlus onClick={() => openModal("newchat")} stroke="inherit" size="32" />
+        </ButtonTooltip>
+        <ButtonTooltip message={"информация о пользователе"}>
+          <User onClick={() => openModal("userinfo")} stroke="inherit" size="32" />
+        </ButtonTooltip>
+        <ButtonTooltip message={"настройки"}>
           <Settings onClick={() => openModal("settings")} stroke="inherit" size="32" />
-        </Button>
+        </ButtonTooltip>
       </div>
     </div>
   );

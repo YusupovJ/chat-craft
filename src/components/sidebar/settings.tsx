@@ -1,7 +1,7 @@
 import { useThemeStore } from "@/store/theme";
-import { ModalContent, ModalHeader } from "./ui/modal";
-import { Label } from "./ui/label";
-import { Switch } from "./ui/switch";
+import { ModalContent, ModalHeader } from "../ui/modal";
+import { Label } from "../ui/label";
+import { Switch } from "../ui/switch";
 
 const Settings = () => {
   const { theme, setTheme } = useThemeStore();

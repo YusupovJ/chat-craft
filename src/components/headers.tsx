@@ -1,16 +1,12 @@
 import Container from "./container";
 import Logo from "../assets/logo.svg?react";
 import { memo } from "react";
-import Avatars from "./avatars";
-import { DropdownMenuRadioGroupDemo } from "./dropdown";
-import { useAuthStore } from "@/store/auth";
 import { Button } from "./ui/button";
 import { LogInIcon } from "lucide-react";
 import { useModalStore } from "@/store/modal";
 import { Link } from "react-router-dom";
 
 const Headers = () => {
-  const { user, isAuthenticated } = useAuthStore();
   const { openModal } = useModalStore();
 
   return (
@@ -20,19 +16,11 @@ const Headers = () => {
           <Logo className="fill-muted" />
           <h1 className="font-bold text-muted text-[14px] lg:text-[18px]">ChatCraft</h1>
         </Link>
-        {isAuthenticated ? (
-          <div className="flex items-center space-x-3">
-            <span className="hidden lg:flex">
-              <Avatars index={user?.avatar || 2} />
-            </span>
-            <DropdownMenuRadioGroupDemo name={user?.username} />
-          </div>
-        ) : (
-          <Button variant="outline" onClick={() => openModal("auth")} className="flex py-0 px-2 gap-2">
-            <LogInIcon />
-            <span className="hidden lg:block">Войти</span>
-          </Button>
-        )}
+
+        <Button variant="outline" onClick={() => openModal("auth")} className="flex py-0 px-2 gap-2">
+          <LogInIcon />
+          <span className="hidden lg:block">Войти</span>
+        </Button>
       </Container>
     </header>
   );

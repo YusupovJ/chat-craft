@@ -11,3 +11,8 @@ export const fetchChatList = async () => {
   const { data } = await api.get<IChat[]>(urls.chat.getAll);
   return data;
 };
+
+export const fetchChatCreate = async ({ name }: { name: string }) => {
+  const { data } = await api.post<IChat>(urls.chat.create, { name });
+  return data;
+};

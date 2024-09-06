@@ -1,14 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
-import ChatInfo from "./chatInfo";
-import MessageList from "./messageList";
-import WriteMessage from "./writeMessage";
+import ChatInfo from "../components/chat/chatInfo";
+import MessageList from "../components/chat/messageList";
+import WriteMessage from "../components/chat/writeMessage";
 import { FC, useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
-import ChatList from "./chatList";
+import ChatList from "../components/chat/chatList";
 import { cn, scrollToBottom } from "@/lib/utils";
 import { MESSAGE_LIMIT } from "@/lib/constants";
-import Sidebar from "./sidebar";
+import Sidebar from "../components/sidebar/sidebar";
 import { useMessages } from "@/hooks/useMessage";
 
 interface Props {
