@@ -5,9 +5,9 @@ import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react
 import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
-import { EmojiDropdownMenu } from "./emoji/emoji";
 import { IMessage } from "@/types";
 import { isAtBottom } from "@/lib/utils";
+import { MenuSmailik } from "./emoji";
 
 interface IProps {
   setNewMessages: Dispatch<SetStateAction<IMessage[]>>;
@@ -36,7 +36,7 @@ const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
     };
   }, [socket, id, userId]);
 
-  const sendMessage = () => {
+  const sendMessage = (content: string) => {
     if (content && content.trim()) {
       socket.emit("message", {
         chatId: id,
@@ -61,13 +61,17 @@ const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={(e) => {
           if (e.code === "Enter") {
-            sendMessage();
+            sendMessage(content);
           }
         }}
         value={content}
       />
-      <EmojiDropdownMenu setContent={setContent} />
-      <Button className="rounded-none flex gap-2 items-center" onClick={sendMessage} aria-label="Отправить сообщение">
+      <MenuSmailik setContent={setContent} sendMessage={sendMessage} />
+      <Button
+        className="rounded-none flex gap-2 items-center"
+        onClick={() => sendMessage(content)}
+        aria-label="Отправить сообщение"
+      >
         <p className="hidden md:block">Отправить сообщение</p> <Send />
       </Button>
     </div>
