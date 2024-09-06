@@ -1,11 +1,9 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Button } from "./ui/button";
 import { LogOut, Share2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { api } from "@/lib/api";
-import { urls } from "@/lib/urls";
-import { IChat } from "@/types";
 import { shareLink } from "@/lib/utils";
+import { useChatInfo } from "@/hooks/useChat";
 
 interface Props {
   className?: string;
@@ -14,13 +12,8 @@ interface Props {
 const ChatInfo: FC<Props> = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [chat, setChat] = useState<IChat>();
 
-  useEffect(() => {
-    api.get<IChat>(urls.chat.getOne(id)).then((res) => {
-      setChat(res.data);
-    });
-  }, [id]);
+  const { data: chat } = useChatInfo(id);
 
   const leave = () => {
     navigate("/chat");

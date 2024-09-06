@@ -1,10 +1,9 @@
-import { api } from "@/lib/api";
+import { useChatList } from "@/hooks/useChat";
 import { sticketRegExp } from "@/lib/stiker";
-import { urls } from "@/lib/urls";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/auth";
-import { IChat, IMessage } from "@/types";
-import { FC, useEffect, useState } from "react";
+import { IMessage } from "@/types";
+import { FC } from "react";
 import { Link, useParams } from "react-router-dom";
 
 interface Props {
@@ -13,18 +12,13 @@ interface Props {
 }
 
 const ChatList: FC<Props> = ({ lastNewMessage, className }) => {
-  const [chatList, setChatList] = useState<IChat[]>([]);
   const { id } = useParams();
   const { user } = useAuthStore();
 
-  useEffect(() => {
-    api.get<IChat[]>(urls.chat.getAll).then(({ data }) => {
-      setChatList(data);
-    });
-  }, []);
+  const { data: chatList } = useChatList();
 
-  if (!chatList.length) {
-    return <h4 className="text-muted-foreground text-center mt-5">Чатов у вас нет</h4>;
+  if (!chatList?.length) {
+    return <h4 className={cn("text-muted-foreground text-lg text-center mt-5", className)}>У вас нету чатов</h4>;
   }
 
   return (

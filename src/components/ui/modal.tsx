@@ -11,6 +11,21 @@ interface ModalProps {
   className?: string;
 }
 
+interface ModalHeaderProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+interface ModalContentProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+interface ModalFooterProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
 export const Modal: FC<ModalProps> = ({
   name,
   children,
@@ -75,31 +90,13 @@ export const Modal: FC<ModalProps> = ({
   );
 };
 
-// ModalHeader Component
-interface ModalHeaderProps {
-  children?: React.ReactNode;
-  className?: string;
-}
-
 export const ModalHeader: React.FC<ModalHeaderProps> = ({ children, className = "" }) => {
   return <div className={cn("text-lg font-semibold", className)}>{children}</div>;
 };
 
-// ModalContent Component
-interface ModalContentProps {
-  children?: React.ReactNode;
-  className?: string;
-}
-
 export const ModalContent: React.FC<ModalContentProps> = ({ children, className = "" }) => {
   return <div className={cn("text-base", className)}>{children}</div>;
 };
-
-// ModalFooter Component
-interface ModalFooterProps {
-  children?: React.ReactNode;
-  className?: string;
-}
 
 export const ModalFooter: React.FC<ModalFooterProps> = ({ children, className = "" }) => {
   return <div className={cn("flex justify-end", className)}>{children}</div>;

@@ -3,41 +3,26 @@ import ChatInfo from "./chatInfo";
 import MessageList from "./messageList";
 import WriteMessage from "./writeMessage";
 import { FC, useEffect, useState } from "react";
-import { api } from "@/lib/api";
-import { urls } from "@/lib/urls";
 import { useAuthStore } from "@/store/auth";
-import { toast } from "sonner";
 import { IMessage } from "@/types";
 import ChatList from "./chatList";
 import { cn, scrollToBottom } from "@/lib/utils";
 import { MESSAGE_LIMIT } from "@/lib/constants";
 import Sidebar from "./sidebar";
+import { useMessages } from "@/hooks/useMessage";
 
 interface Props {
   unselected?: boolean;
 }
 
-const loadMessages = (id?: string, page?: number) => {
-  return api.get<IMessage[]>(urls.message.getAll(id, page));
-};
-
 const Chat: FC<Props> = ({ unselected }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuthStore();
-  const [messages, setMessages] = useState<IMessage[]>([]);
   const [newMessages, setNewMessages] = useState<IMessage[]>([]);
   const [isAtBottom, setIsAtBottom] = useState(true);
-
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
-  const handleError = (err: any) => {
-    if (err.response.status === 404) {
-      navigate("/");
-      toast.error("чат не найден");
-    }
-  };
+  const { messages, fetchNextPage, hasNextPage } = useMessages(id);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -45,35 +30,35 @@ const Chat: FC<Props> = ({ unselected }) => {
     }
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    if (page <= totalPages && !unselected && page !== 1) {
-      loadMessages(id, page)
-        .then((res) => {
-          setMessages([...res.data, ...messages]);
-        })
-        .catch(handleError);
-    }
-  }, [page]);
+  /* Подгружаем данные когда наверху страницы */
 
-  useEffect(() => {
-    setPage(1);
-    if (id && !unselected) {
-      loadMessages(id)
-        .then((res) => {
-          setMessages(res.data);
-          setNewMessages([]);
-          setTotalPages(res.pagination?.totalPages || 1);
-        })
-        .catch(handleError);
-    }
-  }, [id]);
+  const onScrollTop = () => {
+    const handleScroll = () => {
+      if (window.scrollY === 0 && hasNextPage) {
+        setPage((page) => page + 1);
+        fetchNextPage();
+      }
+    };
 
-  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  };
+
+  useEffect(onScrollTop, [fetchNextPage, hasNextPage]);
+
+  /* При первой загрузке отправляем вниз */
+
+  const onFirstLoad = () => {
     if (page === 1) {
       scrollToBottom("instant");
-      return;
     }
+  };
 
+  useEffect(onFirstLoad, [messages]);
+
+  /* При подгрузке скороллим до элемента на котором остановились */
+
+  const calcScroll = () => {
     const messages = document.querySelectorAll("[data-index]");
 
     if (messages.length) {
@@ -82,14 +67,28 @@ const Chat: FC<Props> = ({ unselected }) => {
 
       if (top) window.scrollTo({ top: top - 77 });
     }
-  }, [messages]);
+  };
 
-  useEffect(() => {
+  useEffect(calcScroll, [page]);
+
+  /* Отправляем пользователя вниз при отправке сообщения */
+
+  const whenMessageSent = () => {
     const isMe = newMessages[newMessages.length - 1]?.user.id === user?.id;
     if (isMe || isAtBottom) {
       scrollToBottom();
     }
-  }, [newMessages]);
+  };
+
+  useEffect(whenMessageSent, [newMessages]);
+
+  /*  */
+
+  const onChatChange = () => {
+    setPage(1);
+  };
+
+  useEffect(onChatChange, [id]);
 
   return (
     <div className="flex relative">
@@ -107,7 +106,7 @@ const Chat: FC<Props> = ({ unselected }) => {
           <>
             <ChatInfo />
             <MessageList messages={messages} className="min-h-[calc(100vh-72px-56px)]" />
-            <MessageList messages={newMessages} setPage={setPage} />
+            <MessageList messages={newMessages} />
             <WriteMessage setNewMessages={setNewMessages} setIsAtBottom={setIsAtBottom} />
           </>
         ) : (

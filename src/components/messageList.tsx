@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import Avatars from "./avatars";
 import { cn } from "@/lib/utils";
 import Message from "./message";
@@ -11,24 +11,11 @@ interface Props {
   setPage?: Dispatch<SetStateAction<number>>;
 }
 
-const MessageList: FC<Props> = ({ messages, className, setPage }) => {
+const MessageList: FC<Props> = ({ messages, className }) => {
   const { user } = useAuthStore();
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY === 0 && setPage && containerRef) {
-        setPage((page) => page + 1);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
-    <div ref={containerRef} className={cn("flex flex-col gap-10 sm:gap-6 py-2 px-4 bg-muted", className)}>
+    <div className={cn("flex flex-col gap-10 sm:gap-6 py-2 px-4 bg-muted", className)}>
       {messages.map((message, index) => {
         const isMe = user?.id === message.user.id;
 

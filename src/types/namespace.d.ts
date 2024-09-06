@@ -9,3 +9,9 @@ declare module "axios" {
     status: number;
   }
 }
+
+declare module "react-query" {
+  interface UseQueryResult<TData> {
+    data: TData;
+  }
+}

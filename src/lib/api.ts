@@ -2,7 +2,7 @@ import axios from "axios";
 import { baseURL } from "./urls";
 import { getLocalStorage, setLocalStorage } from "./utils";
 import { toast } from "sonner";
-import { refresh } from "@/services/authService";
+import { fetchRefresh } from "@/services/authService";
 
 export const api = axios.create({ baseURL });
 
@@ -30,7 +30,7 @@ api.interceptors.response.use(
     if (refreshToken && error.response.status === 401 && !originalConfig.isRetry) {
       originalConfig.isRetry = true;
 
-      const response = await refresh({ refreshToken });
+      const response = await fetchRefresh({ refreshToken });
 
       const tokens = response.data;
 

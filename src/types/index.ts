@@ -64,6 +64,12 @@ export interface IRefreshData {
 
 export type TError = AxiosError<IError>;
 
+export interface IMessagePage {
+  messages: IMessage[];
+  nextPage: number;
+  totalPages: number;
+}
+
 /* Store */
 
 export interface IAuthStore {
