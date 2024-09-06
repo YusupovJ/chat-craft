@@ -21,9 +21,7 @@ export const setLocalStorage = (key: TKeyLocalstorage, value: string): void => {
 };
 
 export const delLocalStorage = (...keys: TKeyLocalstorage[]) => {
-  if (Array.isArray(keys)) {
-    keys.forEach((key) => localStorage.removeItem(key));
-  }
+  keys.forEach((key) => localStorage.removeItem(key));
 };
 
 export const clearLocalStorage = (): void => {
