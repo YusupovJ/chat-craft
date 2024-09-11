@@ -12,9 +12,9 @@ const UserInfo = () => {
       <ModalHeader>
         <h2>Информация о пользователе</h2>
       </ModalHeader>
-      <ModalContent>
-        <Avatars index={user.avatar} />
-        <p>{user.username}</p>
+      <ModalContent className="flex gap-4">
+        <Avatars className="w-14 h-14" index={user.avatar} />
+        <p>Никнейм: {user.username}</p>
       </ModalContent>
     </>
   );

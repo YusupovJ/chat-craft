@@ -97,3 +97,11 @@ export const isAtBottom = () => {
 export const scrollbarSize = () => {
   return window.innerWidth - document.body.clientWidth;
 };
+
+// formatter content
+export const formatContent = (content: string, limit: number = 30) => {
+  if (content.length > limit) {
+    return content.slice(0, limit + 1).trim() + "...";
+  }
+  return content;
+};

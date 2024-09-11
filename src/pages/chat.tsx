@@ -16,6 +16,7 @@ interface Props {
 }
 
 const Chat: FC<Props> = ({ unselected }) => {
+  const [sizeSidebar, setSizeSidebar] = useState<boolean>(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuthStore();
@@ -94,12 +95,18 @@ const Chat: FC<Props> = ({ unselected }) => {
     <div className="flex relative">
       <aside
         className={cn(
-          "sticky lg:basis-[400px] top-0 left-0 max-h-screen flex",
-          unselected ? "basis-full" : "hidden lg:flex"
+          `sticky transition-all top-0 left-0 max-h-screen flex`,
+          unselected ? "basis-full" : "hidden lg:flex",
+          sizeSidebar ? "lg:basis-[200px]" : "lg:basis-[400px]"
         )}
       >
         <Sidebar className="shrink-0 grow-0 basis-20 bg-accent" />
-        <ChatList className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
+        <ChatList
+          setSize={setSizeSidebar}
+          size={sizeSidebar}
+          className="grow "
+          lastNewMessage={newMessages[newMessages.length - 1]}
+        />
       </aside>
       <main className={cn("bg-muted min-h-[100svh] relative grow", unselected && "flex items-center justify-center")}>
         {!unselected ? (

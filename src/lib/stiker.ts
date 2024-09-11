@@ -1,4 +1,4 @@
-export const sticketRegExp = /^@[0-9]$|^@[0-2][0-7]$|^@19$/;
+export const sticketRegExp = /^@[0-9]$|^@[0-1][0-9]$|^@[1-2][0-7]$/;
 
 export const stiker = [
   {
