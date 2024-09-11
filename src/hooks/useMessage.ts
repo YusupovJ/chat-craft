@@ -1,18 +1,21 @@
 import { MESSAGES_KEY } from "@/lib/constants";
 import { fetchMessages } from "@/services/messageService";
-import { IMessagePage, TError } from "@/types";
-import { useInfiniteQuery } from "react-query";
+import { IMessage, TError } from "@/types";
+import { useState } from "react";
+import { useQuery } from "react-query";
 
-export const useMessages = (id?: string) => {
-  const query = useInfiniteQuery<IMessagePage, TError>([MESSAGES_KEY, id], fetchMessages, {
-    getNextPageParam: (lastPage) => {
-      return lastPage.nextPage <= lastPage.totalPages ? lastPage.nextPage : undefined;
+export const useMessages = (page: number, id?: string) => {
+  const [totalPages, setTotalPages] = useState(1);
+
+  const query = useQuery<IMessage[], TError>(
+    [MESSAGES_KEY, page, id],
+    async () => {
+      const { data, pagination } = await fetchMessages(page, id);
+      setTotalPages(pagination?.totalPages || 1);
+      return data;
     },
+    { enabled: page <= totalPages }
+  );
 
-    enabled: !!id,
-  });
-
-  const messages = query.data?.pages.reverse().flatMap((page) => page.messages) || [];
-
-  return { ...query, messages };
+  return query;
 };

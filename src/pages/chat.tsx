@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ChatInfo from "../components/chat/chatInfo";
 import MessageList from "../components/chat/messageList";
 import WriteMessage from "../components/chat/writeMessage";
@@ -6,10 +6,10 @@ import { FC, useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
 import ChatList from "../components/chat/chatList";
-import { cn, scrollToBottom } from "@/lib/utils";
-import { MESSAGE_LIMIT } from "@/lib/constants";
+import { cn, isAtBottom, scrollToBottom } from "@/lib/utils";
 import Sidebar from "../components/sidebar/sidebar";
 import { useMessages } from "@/hooks/useMessage";
+import { useModalStore } from "@/store/modal";
 
 interface Props {
   unselected?: boolean;
@@ -17,78 +17,35 @@ interface Props {
 
 const Chat: FC<Props> = ({ unselected }) => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const { openModal, openModals } = useModalStore();
   const { isAuthenticated, user } = useAuthStore();
   const [newMessages, setNewMessages] = useState<IMessage[]>([]);
-  const [isAtBottom, setIsAtBottom] = useState(true);
   const [page, setPage] = useState(1);
-  const { messages, fetchNextPage, hasNextPage } = useMessages(id);
+  const { data: messages } = useMessages(page, id);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
+    if (!isAuthenticated && !openModals.auth) {
+      openModal("auth");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, openModals]);
 
-  /* Подгружаем данные когда наверху страницы */
+  useEffect(() => {
+    scrollToBottom("instant");
+  }, [messages]);
 
-  const onScrollTop = () => {
-    const handleScroll = () => {
-      if (window.scrollY === 0 && hasNextPage) {
-        setPage((page) => page + 1);
-        fetchNextPage();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  };
-
-  useEffect(onScrollTop, [fetchNextPage, hasNextPage]);
-
-  /* При первой загрузке отправляем вниз */
-
-  const onFirstLoad = () => {
-    if (page === 1) {
-      scrollToBottom("instant");
-    }
-  };
-
-  useEffect(onFirstLoad, [messages]);
-
-  /* При подгрузке скороллим до элемента на котором остановились */
-
-  const calcScroll = () => {
-    const messages = document.querySelectorAll("[data-index]");
-
-    if (messages.length) {
-      const index = messages.length - MESSAGE_LIMIT * (page - 1) - newMessages.length;
-      const top = messages[index]?.getBoundingClientRect().top;
-
-      if (top) window.scrollTo({ top: top - 77 });
-    }
-  };
-
-  useEffect(calcScroll, [page]);
-
-  /* Отправляем пользователя вниз при отправке сообщения */
-
-  const whenMessageSent = () => {
-    const isMe = newMessages[newMessages.length - 1]?.user.id === user?.id;
-    if (isMe || isAtBottom) {
-      scrollToBottom();
-    }
-  };
-
-  useEffect(whenMessageSent, [newMessages]);
-
-  /*  */
+  useEffect(() => {
+    const isMe = newMessages[newMessages.length - 1]?.user?.id === user?.id;
+    if (isMe || isAtBottom()) scrollToBottom();
+  }, [newMessages]);
 
   const onChatChange = () => {
     setPage(1);
+    setNewMessages([]);
   };
 
   useEffect(onChatChange, [id]);
+
+  if (!messages) return null;
 
   return (
     <div className="flex relative">
@@ -101,13 +58,15 @@ const Chat: FC<Props> = ({ unselected }) => {
         <Sidebar className="shrink-0 grow-0 basis-20 bg-accent" />
         <ChatList className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
       </aside>
-      <main className={cn("bg-muted min-h-[100svh] relative grow", unselected && "flex items-center justify-center")}>
+      <main className={cn("bg-muted  relative grow", unselected && "flex items-center justify-center")}>
         {!unselected ? (
           <>
             <ChatInfo />
-            <MessageList messages={messages} className="min-h-[calc(100vh-72px-56px)]" />
-            <MessageList messages={newMessages} />
-            <WriteMessage setNewMessages={setNewMessages} setIsAtBottom={setIsAtBottom} />
+            <div className="min-h-[calc(100dvh-72px-56px)]">
+              <MessageList messages={messages} />
+              <MessageList messages={newMessages} />
+            </div>
+            <WriteMessage setNewMessages={setNewMessages} />
           </>
         ) : (
           <p className="bg-background hidden lg:inline-block p-2 font-bold">Выберите чат для общения</p>
