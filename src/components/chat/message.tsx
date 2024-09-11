@@ -48,7 +48,7 @@ const Message: FC<Props> = ({ className, isMe, message }) => {
           return <span key={index}>{word}</span>;
         })}
       </p>
-      <p className={`text-[9px] lg:text-[11px] text-primary font-light ${!isMe && "text-end"}`}>
+      <p className={`text-[9px] lg:text-[11px] text-primary mt-2 font-light ${!isMe && "text-end"}`}>
         {localeDate(message.created_at)}
       </p>
     </div>

@@ -12,7 +12,7 @@ export function EmojiMenu({ setContent }: IEmojiProps) {
   };
 
   return (
-    <DropdownMenuRadioGroup className="grid grid-cols-3 md:grid-cols-4 gap-4 w-full">
+    <DropdownMenuRadioGroup className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
       {emojiList.map((emoji) => (
         <DropdownMenuRadioItem
           onClick={() => selectEmoji(emoji)}

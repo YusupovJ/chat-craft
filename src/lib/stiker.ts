@@ -1,4 +1,4 @@
-export const sticketRegExp = /^@[0-9]$|^@1[0-9]$|^@19$/;
+export const sticketRegExp = /^@[0-9]$|^@[0-2][0-7]$|^@19$/;
 
 export const stiker = [
   {
@@ -33,4 +33,32 @@ export const stiker = [
   { id: 18, url: "https://media.tenor.com/iVv-SN7A168AAAAM/the-rock-dwayne-johnson.gif" },
   { id: 19, url: "https://media.tenor.com/S894mCfpIZ0AAAAM/izdi-morshall-prime-real-izdi-morshall.gif" },
   { id: 20, url: "https://media.tenor.com/LXMbFUSWnVoAAAAM/minecraft-minecraft-memes.gif" },
+  {
+    id: 21,
+    url: "https://steamuserimages-a.akamaihd.net/ugc/946202334139830945/9B215C7D7907D9B390902467AF09DF78BD9A5749/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+  },
+  {
+    id: 22,
+    url: "https://media.tenor.com/WnLb92xeN-kAAAAM/bnha-boku-no-hero-academia.gif",
+  },
+  {
+    id: 23,
+    url: "https://www.icegif.com/wp-content/uploads/2022/01/icegif-960.gif",
+  },
+  {
+    id: 24,
+    url: "https://gifdb.com/images/high/cat-memes-cute-hehe-angry-hehe-lztbt3g0w7nn4lha.gif",
+  },
+  {
+    id: 25,
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREmlF5bnW0UwY0FF7MAuPLLsn5POOBprIcB2fSxmnF_fOEWB-31yHyYOuhMbUCGLmTo-k&usqp=CAU",
+  },
+  {
+    id: 26,
+    url: "https://media.tenor.com/M63nflRRzgMAAAAM/rjumen-laugh-man.gif",
+  },
+  {
+    id: 27,
+    url: "https://media1.giphy.com/media/Mab0VG2Rqarpbbku33/200w.gif?cid=6c09b9522ywetla8khrdck7ke8f3r4tn8fercb3x3pdhrje6&ep=v1_gifs_search&rid=200w.gif&ct=g",
+  },
 ];

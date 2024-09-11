@@ -19,7 +19,7 @@ export function StikerMenu({ sendMessage }: IEmojiProps) {
           className="hover:bg-gray-100 p-0 py-3 px-2 cursor-pointer flex justify-center overflow-hidden"
           value="top"
         >
-          <img src={stiker.url} className="max-w-40 h-full" alt="stiker" />
+          <img src={stiker.url} className="max-w-28 lg:max-w-40 max-h-[150px] h-full" alt="stiker" />
         </DropdownMenuRadioItem>
       ))}
     </DropdownMenuRadioGroup>
