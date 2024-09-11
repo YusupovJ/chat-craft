@@ -6,17 +6,15 @@ import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
-import { isAtBottom } from "@/lib/utils";
 import { MenuSmailik } from "./emoji";
 
 interface IProps {
   setNewMessages: Dispatch<SetStateAction<IMessage[]>>;
-  setIsAtBottom: Dispatch<SetStateAction<boolean>>;
 }
 
 const socket = io(import.meta.env.VITE_BASEURL);
 
-const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
+const WriteMessage: FC<IProps> = ({ setNewMessages }) => {
   const [content, setContent] = useState("");
   const { id } = useParams();
   const userId = useAuthStore((state) => state.user?.id);
@@ -27,7 +25,6 @@ const WriteMessage: FC<IProps> = ({ setNewMessages, setIsAtBottom }) => {
 
     socket.on("reply", (msg) => {
       setNewMessages((prevMessages) => [...prevMessages, msg]);
-      setIsAtBottom(isAtBottom());
     });
 
     return () => {

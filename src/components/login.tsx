@@ -43,11 +43,12 @@ function Login() {
       const values = { username: name, password, avatar };
       signUp(values, {
         onSuccess: (data) => {
-          setIsAuthenticated(true);
           setLocalStorage("accessToken", data.accessToken);
           setLocalStorage("refreshToken", data.refreshToken);
 
-          toast.success(`вы успешно зарегистрировались`);
+          setIsAuthenticated(true);
+          closeModal("auth");
+          toast.success(`Вы успешно зарегистрировались`);
         },
         onError,
       });
