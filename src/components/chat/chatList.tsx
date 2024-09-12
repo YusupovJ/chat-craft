@@ -5,8 +5,6 @@ import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
 import { Dispatch, FC, SetStateAction } from "react";
 import { Link, useParams } from "react-router-dom";
-import { icons } from "lucide-react";
-import { Button } from "../ui/button";
 
 interface Props {
   lastNewMessage?: IMessage;
@@ -15,10 +13,9 @@ interface Props {
   size?: boolean;
 }
 
-const ChatList: FC<Props> = ({ size, setSize, lastNewMessage, className }) => {
+const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
   const { id } = useParams();
   const { user } = useAuthStore();
-
   const { data: chatList } = useChatList();
 
   if (!chatList?.length) {
@@ -27,9 +24,6 @@ const ChatList: FC<Props> = ({ size, setSize, lastNewMessage, className }) => {
 
   return (
     <div className={cn("flex flex-col", className)}>
-      <Button variant="ghost" className="w-20 ml-auto" onClick={() => setSize?.(size ? false : true)}>
-        <icons.ArrowBigLeft className={cn(size ? "rotate-180" : "rotate-0", "transition-all")} />
-      </Button>
       {chatList.map((chat) => {
         const lastMessage = lastNewMessage?.chat.id === chat.id ? lastNewMessage : chat.messages[0];
         const isMe = user?.id === lastMessage?.user?.id;
@@ -42,7 +36,7 @@ const ChatList: FC<Props> = ({ size, setSize, lastNewMessage, className }) => {
           >
             <p className="font-semibold mb-1">{formatContent(chat.name, size ? 10 : 20)}</p>
             {lastMessage && !size && (
-              <p className="text-muted-foreground text-xs">
+              <p className="text-muted-foreground text-xs flex item-center">
                 {isMe ? "Вы" : lastMessage?.user?.username}:{" "}
                 {sticketRegExp.test(lastMessage.content) ? "стикер" : formatContent(lastMessage.content)}
               </p>

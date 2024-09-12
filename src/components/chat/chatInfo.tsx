@@ -27,7 +27,7 @@ const ChatInfo: FC<Props> = () => {
       <h2 className="font-bold text-white">{chat?.name}</h2>
       <div className="flex gap-4">
         <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={shareLink}>
-          <p className="hidden md:block">Пригласить</p> <Share2 size="20" />
+          <p className="hidden lg:block">Пригласить</p> <Share2 size="20" />
         </Button>
       </div>
     </div>

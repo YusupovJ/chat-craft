@@ -10,6 +10,8 @@ import { cn, isAtBottom, scrollToBottom } from "@/lib/utils";
 import Sidebar from "../components/sidebar/sidebar";
 import { useMessages } from "@/hooks/useMessage";
 import { useModalStore } from "@/store/modal";
+import { Button } from "@/components/ui/button";
+import { icons } from "lucide-react";
 
 interface Props {
   unselected?: boolean;
@@ -46,8 +48,6 @@ const Chat: FC<Props> = ({ unselected }) => {
 
   useEffect(onChatChange, [id]);
 
-  if (!messages) return null;
-
   return (
     <div className="flex relative">
       <aside
@@ -58,12 +58,16 @@ const Chat: FC<Props> = ({ unselected }) => {
         )}
       >
         <Sidebar className="shrink-0 grow-0 basis-20 bg-accent" />
-        <ChatList
-          setSize={setSizeSidebar}
-          size={sizeSidebar}
-          className="grow "
-          lastNewMessage={newMessages[newMessages.length - 1]}
-        />
+        <div className="flex flex-col w-full">
+          <Button
+            variant="ghost"
+            className="w-20 ml-auto hidden lg:flex"
+            onClick={() => setSizeSidebar?.(sizeSidebar ? false : true)}
+          >
+            <icons.ArrowBigLeft className={cn(sizeSidebar ? "rotate-180" : "rotate-0", "transition-all")} />
+          </Button>
+          <ChatList size={sizeSidebar} className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
+        </div>
       </aside>
       <main className={cn("bg-muted  relative grow", unselected && "flex items-center justify-center")}>
         {!unselected ? (

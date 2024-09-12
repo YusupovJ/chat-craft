@@ -4,6 +4,7 @@ export interface IMe {
   username: string;
   avatar: number;
   id: number;
+  gender: string;
 }
 
 export interface IPagination {

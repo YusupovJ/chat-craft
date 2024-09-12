@@ -22,7 +22,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
           setIsAuthenticated(true);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.message);
           setIsAuthenticated(false);
           setUser(null);
         });

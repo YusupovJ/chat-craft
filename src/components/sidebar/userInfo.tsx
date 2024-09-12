@@ -14,7 +14,10 @@ const UserInfo = () => {
       </ModalHeader>
       <ModalContent className="flex gap-4">
         <Avatars className="w-14 h-14" index={user.avatar} />
-        <p>Никнейм: {user.username}</p>
+        <span>
+          <p>Никнейм: {user.username}</p>
+          <p>Пол: {user.gender}</p>
+        </span>
       </ModalContent>
     </>
   );
