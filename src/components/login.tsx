@@ -97,7 +97,7 @@ function Login() {
                   <SelectItem value="man">Мужчина</SelectItem>
                   <SelectItem value="girl">Женщина</SelectItem>
                   <SelectItem value="steve">Стив</SelectItem>
-                  <SelectItem value="croissant">круассан</SelectItem>
+                  <SelectItem value="croissant">Круассан</SelectItem>
                 </SelectContent>
               </Select>
             </div>

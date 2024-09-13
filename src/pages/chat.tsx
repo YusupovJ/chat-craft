@@ -69,7 +69,7 @@ const Chat: FC<Props> = ({ unselected }) => {
           <ChatList size={sizeSidebar} className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
         </div>
       </aside>
-      <main className={cn("bg-muted  relative grow", unselected && "flex items-center justify-center")}>
+      <main className={cn("bg-muted relative grow", unselected && "flex items-center justify-center min-h-[100dvh]")}>
         {!unselected ? (
           <>
             <ChatInfo />
