@@ -11,7 +11,7 @@ interface Props {
 
 const genLink = (word: string, key: string | number) => {
   return (
-    <a href={word} key={key} target="_blank" className="text-blue-500 underline">
+    <a href={word} key={key} target="_blank" className="text-blue-500 underline break-all">
       {word}
     </a>
   );
@@ -45,9 +45,14 @@ const Message: FC<Props> = ({ className, isMe, message }) => {
           const isUrl = word.startsWith("https://") || word.startsWith("http://");
           if (isUrl) return genLink(word, index);
 
-          return <span key={index}>{word}</span>;
+          return (
+            <span key={index} className="break-all">
+              {word}
+            </span>
+          );
         })}
       </p>
+
       <p className={`text-[9px] lg:text-[11px] text-primary mt-2 font-light ${!isMe && "text-end"}`}>
         {localeDate(message.created_at)}
       </p>

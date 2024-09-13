@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Button } from "../ui/button";
 import { ArrowBigLeft, Share2 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
-import { shareLink } from "@/lib/utils";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { formatContent, shareLink } from "@/lib/utils";
 import { useChatInfo } from "@/hooks/useChat";
 
 interface Props {
@@ -12,8 +12,13 @@ interface Props {
 const ChatInfo: FC<Props> = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { pathname } = useLocation();
 
-  const { data: chat } = useChatInfo(id);
+  const { data: chat, refetch } = useChatInfo(id);
+
+  useEffect(() => {
+    refetch();
+  }, [pathname]);
 
   const leave = () => {
     navigate("/chat");
@@ -24,7 +29,7 @@ const ChatInfo: FC<Props> = () => {
       <Button variant="outline" className="font-bold flex gap-2 p-2 lg:hidden" onClick={leave}>
         <ArrowBigLeft size="20" />
       </Button>
-      <h2 className="font-bold text-white">{chat?.name}</h2>
+      <h2 className="font-bold text-white break-all px-2">{formatContent(String(chat?.name), 40)}</h2>
       <div className="flex gap-4">
         <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={shareLink}>
           <p className="hidden lg:block">Пригласить</p> <Share2 size="20" />
