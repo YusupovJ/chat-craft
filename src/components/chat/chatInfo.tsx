@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Button } from "../ui/button";
 import { ArrowBigLeft, Share2 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatContent, shareLink } from "@/lib/utils";
 import { useChatInfo } from "@/hooks/useChat";
 
@@ -12,8 +12,13 @@ interface Props {
 const ChatInfo: FC<Props> = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { pathname } = useLocation();
 
-  const { data: chat } = useChatInfo(id);
+  const { data: chat, refetch } = useChatInfo(id);
+
+  useEffect(() => {
+    refetch();
+  }, [pathname]);
 
   const leave = () => {
     navigate("/chat");
