@@ -10,6 +10,7 @@ import { useModalStore } from "@/store/modal";
 import { useSignIn, useSignUp } from "@/hooks/useAuth";
 import { onError } from "@/lib/onError";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { genders } from "@/lib/genders";
 
 function Login() {
   const [name, setName] = useState("");
@@ -94,10 +95,9 @@ function Login() {
                   <SelectValue placeholder="Стив" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="man">Мужчина</SelectItem>
-                  <SelectItem value="girl">Женщина</SelectItem>
-                  <SelectItem value="steve">Стив</SelectItem>
-                  <SelectItem value="croissant">Круассан</SelectItem>
+                  {Object.entries(genders).map(([key, value]) => (
+                    <SelectItem value={key}>{value}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

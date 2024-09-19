@@ -1,10 +1,14 @@
 import { AxiosError } from "axios";
 
+export type TGenders = "man" | "girl" | "croissant" | "steve";
+
+export type IGenders = { [key in TGenders]: string };
+
 export interface IMe {
   username: string;
   avatar: number;
   id: number;
-  gender: string;
+  gender: TGenders;
 }
 
 export interface IPagination {

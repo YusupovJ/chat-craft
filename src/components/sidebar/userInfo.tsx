@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/store/auth";
 import Avatars from "../avatars";
 import { ModalContent, ModalHeader } from "../ui/modal";
+import { genders } from "@/lib/genders";
 
 const UserInfo = () => {
   const { user } = useAuthStore();
@@ -16,7 +17,7 @@ const UserInfo = () => {
         <Avatars className="w-14 h-14" index={user.avatar} />
         <span>
           <p>Никнейм: {user.username}</p>
-          <p>Пол: {user.gender}</p>
+          <p>Пол: {genders[user.gender]}</p>
         </span>
       </ModalContent>
     </>

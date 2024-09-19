@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat";
 import Home from "./pages/home";
 import { Toaster } from "./components/ui/sonner";
@@ -20,19 +20,21 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="light">
-        <ModalProvider>
-          <AuthProvider>
-            <Toaster closeButton richColors theme={theme} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/chat/:id" element={<Chat />} />
-              <Route path="/chat" element={<Chat unselected />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AuthProvider>
-        </ModalProvider>
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider defaultTheme="light">
+          <ModalProvider>
+            <AuthProvider>
+              <Toaster closeButton richColors theme={theme} />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/chat/:id" element={<Chat />} />
+                <Route path="/chat" element={<Chat unselected />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AuthProvider>
+          </ModalProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };
