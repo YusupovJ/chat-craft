@@ -9,7 +9,7 @@ interface Props {
   children?: ReactNode;
 }
 
-const AuthProvider: FC<Props> = ({ children }) => {
+export const AuthProvider: FC<Props> = ({ children }) => {
   const { setIsAuthenticated, setUser, isAuthenticated } = useAuthStore();
   const accessToken = getLocalStorage("accessToken");
 
@@ -35,5 +35,3 @@ const AuthProvider: FC<Props> = ({ children }) => {
 
   return children;
 };
-
-export default AuthProvider;

@@ -1,12 +1,12 @@
 import { DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
-import { emojiList } from "@/lib/emojis";
-import { Dispatch, SetStateAction } from "react";
+import { emojiList } from "@/mock/emojiList";
+import { Dispatch, FC, SetStateAction } from "react";
 
-interface IEmojiProps {
+interface Props {
   setContent: Dispatch<SetStateAction<string>>;
 }
 
-export function EmojiMenu({ setContent }: IEmojiProps) {
+export const EmojiMenu: FC<Props> = ({ setContent }) => {
   const selectEmoji = (emoji: string) => {
     setContent((el) => (el += emoji));
   };
@@ -25,4 +25,4 @@ export function EmojiMenu({ setContent }: IEmojiProps) {
       ))}
     </DropdownMenuRadioGroup>
   );
-}
+};

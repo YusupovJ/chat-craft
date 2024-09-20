@@ -1,9 +1,9 @@
 import { useAuthStore } from "@/store/auth";
-import Avatars from "../avatars";
+import { Avatars } from "../avatars";
 import { ModalContent, ModalHeader } from "../ui/modal";
-import { genders } from "@/lib/genders";
+import { genders } from "@/mock/genders";
 
-const UserInfo = () => {
+export const UserInfo = () => {
   const { user } = useAuthStore();
 
   if (!user) return null;
@@ -23,5 +23,3 @@ const UserInfo = () => {
     </>
   );
 };
-
-export default UserInfo;

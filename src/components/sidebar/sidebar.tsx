@@ -3,13 +3,14 @@ import { FC } from "react";
 import Logo from "@/assets/logo.svg?react";
 import { Settings, User, MessageCirclePlus } from "lucide-react";
 import { useModalStore } from "@/store/modal";
-import { ButtonTooltip } from "@/lib/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
+import { Button } from "../ui/button";
 
 interface Props {
   className?: string;
 }
 
-const Sidebar: FC<Props> = ({ className }) => {
+export const Sidebar: FC<Props> = ({ className }) => {
   const { openModal } = useModalStore();
 
   return (
@@ -20,18 +21,22 @@ const Sidebar: FC<Props> = ({ className }) => {
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <ButtonTooltip message={"создать новый чат"}>
-          <MessageCirclePlus onClick={() => openModal("newchat")} stroke="inherit" size="32" />
-        </ButtonTooltip>
-        <ButtonTooltip message={"информация о пользователе"}>
-          <User onClick={() => openModal("userinfo")} stroke="inherit" size="32" />
-        </ButtonTooltip>
-        <ButtonTooltip message={"настройки"}>
-          <Settings onClick={() => openModal("settings")} stroke="inherit" size="32" />
-        </ButtonTooltip>
+        <Tooltip message={"Создать чат"}>
+          <Button variant="ghost" onClick={() => openModal("newchat")}>
+            <MessageCirclePlus stroke="inherit" size="32" />
+          </Button>
+        </Tooltip>
+        <Tooltip message={"Информация о пользователе"}>
+          <Button variant="ghost" onClick={() => openModal("userinfo")}>
+            <User stroke="inherit" size="32" />
+          </Button>
+        </Tooltip>
+        <Tooltip message={"Настройки"}>
+          <Button variant="ghost" onClick={() => openModal("settings")}>
+            <Settings stroke="inherit" size="32" />
+          </Button>
+        </Tooltip>
       </div>
     </div>
   );
 };
-
-export default Sidebar;

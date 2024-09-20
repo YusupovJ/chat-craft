@@ -1,15 +1,14 @@
 import { AxiosError } from "axios";
 
-export type TGenders = "man" | "girl" | "croissant" | "steve";
+/* Base types ------------ */
 
-export type IGenders = { [key in TGenders]: string };
-
-export interface IMe {
-  username: string;
-  avatar: number;
-  id: number;
-  gender: TGenders;
+export interface IError {
+  error: string;
+  message: string;
+  statusCode: number;
 }
+
+export type TError = AxiosError<IError>;
 
 export interface IPagination {
   totalItems: number;
@@ -26,21 +25,13 @@ export interface IApiReponse<T> {
   status: number;
 }
 
-export interface IChat {
-  id: string;
-  name: string;
-  messages: IMessage[];
-  created_at: string;
-  updated_at: string;
-}
+/* Auth -------------- */
 
-export interface IMessage {
+export interface IMe {
+  username: string;
+  avatar: number;
   id: number;
-  content: string;
-  user: IMe;
-  chat: IChat;
-  created_at: string;
-  updated_at: string;
+  gender: TGenders;
 }
 
 export interface ITokens {
@@ -57,25 +48,11 @@ export interface IRegisterData extends ILoginData {
   avatar: number;
 }
 
-export interface IError {
-  error: string;
-  message: string;
-  statusCode: number;
-}
-
 export interface IRefreshData {
   refreshToken: string;
 }
 
-export type TError = AxiosError<IError>;
-
-export interface IMessagePage {
-  messages: IMessage[];
-  nextPage: number;
-  totalPages: number;
-}
-
-/* Store */
+/* Store --------------- */
 
 export interface IAuthStore {
   user: IMe | null;
@@ -93,9 +70,34 @@ export interface IThemeStore {
 }
 
 export interface IModalStore {
-  openModals: { [key: string]: boolean };
-  openModal: (name: string) => void;
-  closeModal: (name: string) => void;
+  openModals: IModal;
+  openModal: (name: TModal) => void;
+  closeModal: (name: TModal) => void;
+}
+
+export type TModal = "auth" | "newchat" | "settings" | "userinfo";
+export type IModal = { [key in TModal]?: boolean };
+
+/* --------------------- */
+
+export type TGenders = "man" | "girl" | "croissant" | "steve";
+export type IGenders = { [key in TGenders]: string };
+
+export interface IChat {
+  id: string;
+  name: string;
+  messages: IMessage[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IMessage {
+  id: number;
+  content: string;
+  user: IMe;
+  chat: IChat;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ICreateChat {

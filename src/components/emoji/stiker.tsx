@@ -1,11 +1,12 @@
 import { DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
-import { stiker } from "@/lib/stiker";
+import { stiker } from "@/mock/stiker";
+import { FC } from "react";
 
-interface IEmojiProps {
+interface Props {
   sendMessage: (sendMessage: string) => void;
 }
 
-export function StikerMenu({ sendMessage }: IEmojiProps) {
+export const StikerMenu: FC<Props> = ({ sendMessage }) => {
   const selectStiker = (stiker: number) => {
     sendMessage("@" + (stiker - 1));
   };
@@ -19,9 +20,9 @@ export function StikerMenu({ sendMessage }: IEmojiProps) {
           className="hover:bg-gray-100 p-0 py-3 px-2 cursor-pointer flex justify-center overflow-hidden"
           value="top"
         >
-          <img src={stiker.url} className="max-w-28 lg:max-w-40 max-h-[150px] h-full" alt="stiker" />
+          <img src={stiker.url} className="max-w-28 lg:max-w-40 max-h-[150px] h-full w-full" alt="stiker" />
         </DropdownMenuRadioItem>
       ))}
     </DropdownMenuRadioGroup>
   );
-}
+};

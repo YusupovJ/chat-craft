@@ -8,7 +8,7 @@ interface Props {
   children?: ReactNode;
 }
 
-const ThemeProvider: FC<Props> = ({ defaultTheme, children }) => {
+export const ThemeProvider: FC<Props> = ({ defaultTheme, children }) => {
   const { theme, setThemeState } = useThemeStore();
 
   useEffect(() => {
@@ -25,5 +25,3 @@ const ThemeProvider: FC<Props> = ({ defaultTheme, children }) => {
 
   return children;
 };
-
-export default ThemeProvider;

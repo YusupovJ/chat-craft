@@ -1,5 +1,5 @@
-import { sticketRegExp, stiker } from "@/lib/stiker";
-import { cn, localeDate } from "@/lib/utils";
+import { sticketRegExp, stiker } from "@/mock/stiker";
+import { cn, getFormattedTime } from "@/lib/utils";
 import { IMessage } from "@/types";
 import { FC } from "react";
 
@@ -9,15 +9,7 @@ interface Props {
   message: IMessage;
 }
 
-const genLink = (word: string, key: string | number) => {
-  return (
-    <a href={word} key={key} target="_blank" className="text-blue-500 underline break-all">
-      {word}
-    </a>
-  );
-};
-
-const Message: FC<Props> = ({ className, isMe, message }) => {
+export const Message: FC<Props> = ({ className, isMe, message }) => {
   return (
     <div
       className={cn(
@@ -43,7 +35,13 @@ const Message: FC<Props> = ({ className, isMe, message }) => {
           }
 
           const isUrl = word.startsWith("https://") || word.startsWith("http://");
-          if (isUrl) return genLink(word, index);
+          if (isUrl) {
+            return (
+              <a href={word} key={index} target="_blank" className="text-blue-500 underline break-all">
+                {word}
+              </a>
+            );
+          }
 
           return (
             <span key={index} className="break-all">
@@ -54,10 +52,8 @@ const Message: FC<Props> = ({ className, isMe, message }) => {
       </p>
 
       <p className={`text-[9px] lg:text-[11px] text-primary mt-2 font-light ${!isMe && "text-end"}`}>
-        {localeDate(message.created_at)}
+        {getFormattedTime(message.created_at)}
       </p>
     </div>
   );
 };
-
-export default Message;

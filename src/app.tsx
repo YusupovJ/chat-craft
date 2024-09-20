@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Chat from "./pages/chat";
-import Home from "./pages/home";
+import { Chat } from "./pages/chat";
+import { Home } from "./pages/home";
 import { Toaster } from "./components/ui/sonner";
-import AuthProvider from "@/store/authProvider";
-import ThemeProvider from "@/store/themeProvider";
+import { AuthProvider } from "@/store/authProvider";
+import { ThemeProvider } from "@/store/themeProvider";
 import { useThemeStore } from "@/store/theme";
-import ModalProvider from "@/store/modalProvider";
-import NotFound from "./components/notFound";
+import { ModalProvider } from "@/store/modalProvider";
+import { NotFound } from "./pages/notFound";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => {
+export const App = () => {
   const { theme } = useThemeStore();
 
   return (
@@ -38,5 +38,3 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-
-export default App;

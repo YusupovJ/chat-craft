@@ -72,14 +72,7 @@
 }
 
 body[data-scroll-locked] {
-  overflow: hidden !important;
-  overscroll-behavior: contain;
-  position: relative !important;
-  padding-left: 0px;
-  padding-top: 0px;
-  padding-right: 0px;
-  margin-left: 0;
-  margin-top: 0;
+  overflow: hidden;
   margin-right: var(--removed-body-scroll-bar-size);
 }
 
@@ -99,6 +92,11 @@ body {
 
 ::selection {
   background-color: var(--primary-opacity);
+}
+
+.container {
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 /* Remove search clear button in input */

@@ -1,10 +1,12 @@
-import { cn, scrollbarSize } from "@/lib/utils";
+import { useRemoveScroll } from "@/hooks/useRemoveScroll";
+import { cn } from "@/lib/utils";
 import { useModalStore } from "@/store/modal";
-import { FC, useEffect } from "react";
+import { TModal } from "@/types";
+import { FC } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
-  name: string;
+  name: TModal;
   children?: React.ReactNode;
   closeOnOutsideClick?: boolean;
   closeButton?: boolean;
@@ -36,19 +38,7 @@ export const Modal: FC<ModalProps> = ({
   const isOpen = useModalStore((state) => state.openModals[name]);
   const { closeModal } = useModalStore();
 
-  useEffect(() => {
-    if (isOpen) {
-      const size = scrollbarSize();
-      document.body.style.cssText = `--removed-body-scroll-bar-size: ${size}px`;
-      document.body.dataset.scrollLocked = "1";
-
-      return;
-    }
-
-    setTimeout(() => {
-      document.body.removeAttribute("data-scroll-locked");
-    }, 300);
-  }, [isOpen]);
+  useRemoveScroll(isOpen);
 
   const handleOutsideClick = (e: React.MouseEvent) => {
     if (closeOnOutsideClick && e.target === e.currentTarget) {

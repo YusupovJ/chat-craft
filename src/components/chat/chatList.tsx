@@ -1,6 +1,6 @@
 import { useChatList } from "@/hooks/useChat";
-import { sticketRegExp } from "@/lib/stiker";
-import { cn, formatContent } from "@/lib/utils";
+import { sticketRegExp } from "@/mock/stiker";
+import { cn, cutTextOnLimit } from "@/lib/utils";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
 import { Dispatch, FC, SetStateAction } from "react";
@@ -13,7 +13,7 @@ interface Props {
   size?: boolean;
 }
 
-const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
+export const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
   const { id } = useParams();
   const { user } = useAuthStore();
   const { data: chatList } = useChatList();
@@ -34,11 +34,11 @@ const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
             key={chat.id}
             className={cn("block py-5 px-3 hover:bg-muted transition-all", id === chat.id && "bg-muted")}
           >
-            <p className="font-semibold mb-1">{formatContent(chat.name, size ? 10 : 20)}</p>
+            <p className="font-semibold mb-1">{cutTextOnLimit(chat.name, size ? 10 : 20)}</p>
             {lastMessage && !size && (
               <p className="text-muted-foreground text-xs flex item-center">
                 {isMe ? "Вы" : lastMessage?.user?.username}:{" "}
-                {sticketRegExp.test(lastMessage.content) ? "стикер" : formatContent(lastMessage.content)}
+                {sticketRegExp.test(lastMessage.content) ? "стикер" : cutTextOnLimit(lastMessage.content)}
               </p>
             )}
           </Link>
@@ -47,5 +47,3 @@ const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
     </div>
   );
 };
-
-export default ChatList;

@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import ChatInfo from "../components/chat/chatInfo";
-import MessageList from "../components/chat/messageList";
-import WriteMessage from "../components/chat/writeMessage";
+import { ChatInfo } from "../components/chat/chatInfo";
+import { MessageList } from "../components/chat/messageList";
+import { WriteMessage } from "../components/chat/writeMessage";
+import { Sidebar } from "../components/sidebar/sidebar";
 import { FC, useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
-import ChatList from "../components/chat/chatList";
+import { ChatList } from "../components/chat/chatList";
 import { cn, isAtBottom, scrollToBottom } from "@/lib/utils";
-import Sidebar from "../components/sidebar/sidebar";
 import { useMessages } from "@/hooks/useMessage";
 import { useModalStore } from "@/store/modal";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ interface Props {
   unselected?: boolean;
 }
 
-const Chat: FC<Props> = ({ unselected }) => {
+export const Chat: FC<Props> = ({ unselected }) => {
   const [sizeSidebar, setSizeSidebar] = useState<boolean>(false);
   const { id } = useParams();
   const { openModal, openModals } = useModalStore();
@@ -86,5 +86,3 @@ const Chat: FC<Props> = ({ unselected }) => {
     </div>
   );
 };
-
-export default Chat;
