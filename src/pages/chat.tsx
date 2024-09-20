@@ -62,7 +62,7 @@ export const Chat: FC<Props> = ({ unselected }) => {
           <Button
             variant="ghost"
             className="w-20 ml-auto hidden lg:flex"
-            onClick={() => setSizeSidebar?.(sizeSidebar ? false : true)}
+            onClick={() => setSizeSidebar(sizeSidebar ? false : true)}
           >
             <icons.ArrowBigLeft className={cn(sizeSidebar ? "rotate-180" : "rotate-0", "transition-all")} />
           </Button>

@@ -1,13 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Chat } from "./pages/chat";
 import { Home } from "./pages/home";
+import { NotFound } from "./pages/notFound";
 import { Toaster } from "./components/ui/sonner";
 import { AuthProvider } from "@/store/authProvider";
 import { ThemeProvider } from "@/store/themeProvider";
-import { useThemeStore } from "@/store/theme";
 import { ModalProvider } from "@/store/modalProvider";
-import { NotFound } from "./pages/notFound";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,15 +15,13 @@ const queryClient = new QueryClient({
 });
 
 export const App = () => {
-  const { theme } = useThemeStore();
-
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ThemeProvider defaultTheme="light">
+          <Toaster closeButton richColors toastOptions={{ duration: 3000 }} />
           <ModalProvider>
             <AuthProvider>
-              <Toaster closeButton richColors theme={theme} />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/chat/:id" element={<Chat />} />

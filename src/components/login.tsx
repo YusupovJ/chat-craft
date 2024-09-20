@@ -43,7 +43,7 @@ export const Login = () => {
 
   const handlerSignUp = async () => {
     if (name && password) {
-      const values = { username: name, password, avatar, gender };
+      const values = { username: name, password, avatar, gender: "asd" };
       signUp(values, {
         onSuccess: (data) => {
           setLocalStorage("accessToken", data.accessToken);

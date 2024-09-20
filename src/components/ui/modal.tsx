@@ -41,6 +41,7 @@ export const Modal: FC<ModalProps> = ({
   useRemoveScroll(isOpen);
 
   const handleOutsideClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (closeOnOutsideClick && e.target === e.currentTarget) {
       closeModal(name);
     }
@@ -49,7 +50,7 @@ export const Modal: FC<ModalProps> = ({
   return createPortal(
     <div
       className={cn(
-        "fixed inset-0 px-3 overflow-auto z-50 py-5 items-center flex justify-center bg-black bg-opacity-50 transition-all duration-300",
+        "fixed inset-0 px-3 overflow-auto z-50 py-5 flex justify-center bg-black bg-opacity-50 transition-all duration-300",
         {
           "opacity-100": isOpen,
           "opacity-0": !isOpen,
@@ -61,7 +62,7 @@ export const Modal: FC<ModalProps> = ({
     >
       <div
         className={cn(
-          "relative bg-background max-w-[400px] h-fit w-full rounded-lg shadow-lg transform transition-transform duration-300",
+          "relative bg-background max-w-[400px] mt-[10vh] h-fit w-full rounded-lg shadow-lg transform transition-transform duration-300",
           {
             "scale-100": isOpen,
             "scale-95": !isOpen,
@@ -73,7 +74,7 @@ export const Modal: FC<ModalProps> = ({
             &times;
           </button>
         )}
-        <div className="p-4 space-y-4">{children}</div>
+        <div className="space-y-2">{children}</div>
       </div>
     </div>,
     document.body
@@ -81,13 +82,13 @@ export const Modal: FC<ModalProps> = ({
 };
 
 export const ModalHeader: React.FC<ModalHeaderProps> = ({ children, className = "" }) => {
-  return <div className={cn("text-lg font-semibold", className)}>{children}</div>;
+  return <div className={cn("text-lg font-semibold px-4 pt-4", className)}>{children}</div>;
 };
 
 export const ModalContent: React.FC<ModalContentProps> = ({ children, className = "" }) => {
-  return <div className={cn("text-base", className)}>{children}</div>;
+  return <div className={cn("text-base p-4", className)}>{children}</div>;
 };
 
 export const ModalFooter: React.FC<ModalFooterProps> = ({ children, className = "" }) => {
-  return <div className={cn("flex justify-end", className)}>{children}</div>;
+  return <div className={cn("flex justify-end px-4 pb-4", className)}>{children}</div>;
 };

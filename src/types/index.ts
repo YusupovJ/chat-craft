@@ -1,4 +1,7 @@
+import { loginSchema } from "@/validations/loginSchema";
+import { registerSchema } from "@/validations/registerSchema";
 import { AxiosError } from "axios";
+import { InferType } from "yup";
 
 /* Base types ------------ */
 
@@ -39,14 +42,8 @@ export interface ITokens {
   refreshToken: string;
 }
 
-export interface ILoginData {
-  username: string;
-  password: string;
-}
-
-export interface IRegisterData extends ILoginData {
-  avatar: number;
-}
+export type ILoginData = InferType<typeof loginSchema>;
+export type IRegisterData = InferType<typeof registerSchema>;
 
 export interface IRefreshData {
   refreshToken: string;
