@@ -6,6 +6,6 @@ const genders: TGenders[] = ["croissant", "girl", "man", "steve"];
 export const registerSchema = yup.object({
   username: yup.string().min(2).required(),
   password: yup.string().min(6).required(),
-  avatar: yup.number(),
+  avatar: yup.number().default(0),
   gender: yup.mixed().oneOf(genders).default("steve"),
 });

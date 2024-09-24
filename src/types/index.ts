@@ -69,10 +69,10 @@ export interface IThemeStore {
 export interface IModalStore {
   openModals: IModal;
   openModal: (name: TModal) => void;
-  closeModal: (name: TModal) => void;
+  closeModal: (...names: TModal[]) => void;
 }
 
-export type TModal = "auth" | "newchat" | "settings" | "userinfo";
+export type TModal = "auth" | "newchat" | "settings" | "userinfo" | "logout";
 export type IModal = { [key in TModal]?: boolean };
 
 /* --------------------- */

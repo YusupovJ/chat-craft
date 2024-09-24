@@ -38,7 +38,7 @@ export const Modal: FC<ModalProps> = ({
   const isOpen = useModalStore((state) => state.openModals[name]);
   const { closeModal } = useModalStore();
 
-  useRemoveScroll(isOpen);
+  useRemoveScroll();
 
   const handleOutsideClick = (e: React.MouseEvent) => {
     e.stopPropagation();

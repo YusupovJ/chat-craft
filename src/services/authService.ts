@@ -17,3 +17,7 @@ export const fetchRefresh = async (refreshData: IRefreshData) => {
   const { data } = await axios.post<IApiReponse<ITokens>>(baseURL + urls.auth.refresh, refreshData);
   return data;
 };
+
+export const fetchLogout = async () => {
+  await api.post(urls.auth.logout);
+};

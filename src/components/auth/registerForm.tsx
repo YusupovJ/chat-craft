@@ -71,7 +71,7 @@ export const RegisterForm = () => {
             name="gender"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Пол</FormLabel>
+                <FormLabel>Ваш пол</FormLabel>
                 <FormControl>
                   <Select
                     onValueChange={(value) => {
@@ -85,7 +85,9 @@ export const RegisterForm = () => {
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(genders).map(([key, value]) => (
-                        <SelectItem value={key}>{value}</SelectItem>
+                        <SelectItem value={key} key={key}>
+                          {value}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>

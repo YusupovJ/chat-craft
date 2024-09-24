@@ -1,7 +1,12 @@
+import { useModalStore } from "@/store/modal";
 import { useEffect } from "react";
 
-export const useRemoveScroll = (isOpen?: boolean) => {
+export const useRemoveScroll = () => {
+  const { openModals } = useModalStore();
+
   useEffect(() => {
+    const isOpen = Object.values(openModals).filter(Boolean).length;
+
     if (isOpen) {
       const scrollbarSize = window.innerWidth - document.body.clientWidth;
       document.body.style.cssText = `--removed-body-scroll-bar-size: ${scrollbarSize}px`;
@@ -13,5 +18,5 @@ export const useRemoveScroll = (isOpen?: boolean) => {
     setTimeout(() => {
       document.body.removeAttribute("data-scroll-locked");
     }, 300);
-  }, [isOpen]);
+  }, [openModals]);
 };
