@@ -23,14 +23,9 @@ export const Message: FC<Props> = ({ className, isMe, message }) => {
       </p>
       <p className="gap-2 flex flex-wrap">
         {message.content.split(" ").map((word, index) => {
-          if (sticketRegExp.test(word)) {
+          if (sticketRegExp.test(message.content)) {
             return (
-              <img
-                key={index}
-                src={stiker[+message.content.slice(1, 3)].url}
-                className="block m-auto w-96 h-96"
-                alt="stiker"
-              />
+              <img key={index} src={stiker[+word.slice(1, 3)].url} className="block m-auto w-96 h-96" alt="stiker" />
             );
           }
 

@@ -13,10 +13,14 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { genders } from "@/mock/genders";
+import { SelectAva } from "../selectAva";
 
 export const RegisterForm = () => {
   const form = useForm({
     resolver: yupResolver(registerSchema),
+    defaultValues: {
+      avatar: 0,
+    },
   });
   const { mutate: signUp } = useSignUp();
   const { closeModal } = useModalStore();
@@ -91,6 +95,18 @@ export const RegisterForm = () => {
                       ))}
                     </SelectContent>
                   </Select>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="avatar"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Аватарка</FormLabel>
+                <FormControl>
+                  <SelectAva onChange={field.onChange} value={field.value} />
                 </FormControl>
               </FormItem>
             )}

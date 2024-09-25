@@ -86,12 +86,14 @@ export const scrollToBottom = (behavior?: "smooth" | "instant") => {
   });
 };
 
-export const isAtBottom = () => {
+export const isInDeep = () => {
   const scrollTop = window.scrollY;
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
 
-  return scrollTop + windowHeight >= documentHeight;
+  const delta = documentHeight - scrollTop - windowHeight;
+
+  return delta < 500;
 };
 
 // formatter content

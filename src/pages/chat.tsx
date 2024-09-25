@@ -7,7 +7,7 @@ import { FC, useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
 import { ChatList } from "../components/chat/chatList";
-import { cn, isAtBottom, scrollToBottom } from "@/lib/utils";
+import { cn, isInDeep, scrollToBottom } from "@/lib/utils";
 import { useMessages } from "@/hooks/useMessage";
 import { useModalStore } from "@/store/modal";
 import { Button } from "@/components/ui/button";
@@ -38,7 +38,7 @@ export const Chat: FC<Props> = ({ unselected }) => {
 
   useEffect(() => {
     const isMe = newMessages[newMessages.length - 1]?.user?.id === user?.id;
-    if (isMe || isAtBottom()) scrollToBottom();
+    if (isMe || isInDeep()) scrollToBottom();
   }, [newMessages]);
 
   const onChatChange = () => {
