@@ -9,8 +9,6 @@ interface Props {
 }
 
 export const SelectAva: FC<Props> = ({ onChange, value }) => {
-  console.log(value);
-
   return (
     <div className="flex justify-between items-center">
       {avatarList.map((_, avatar) => (

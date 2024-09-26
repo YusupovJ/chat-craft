@@ -1,7 +1,7 @@
-import { sticketRegExp, stiker } from "@/mock/stiker";
-import { cn, getFormattedTime } from "@/lib/utils";
+import { stiker } from "@/mock/stiker";
 import { IMessage } from "@/types";
 import { FC } from "react";
+import { MessageWrapper } from "./messageWrapper";
 
 interface Props {
   className?: string;
@@ -11,19 +11,10 @@ interface Props {
 
 export const Message: FC<Props> = ({ className, isMe, message }) => {
   return (
-    <div
-      className={cn(
-        "bg-background rounded-lg p-3 text-[14px] font-medium shadow-md shadow-muted max-w-[700px]",
-        isMe ? "rounded-br-none" : "rounded-bl-none",
-        className
-      )}
-    >
-      <p className={cn("text-[11px] lg:text-[13px] text-primary font-bold", isMe && "text-end")}>
-        {message.user.username}
-      </p>
+    <MessageWrapper message={message} isMe={isMe} className={className}>
       <p className="gap-2 flex flex-wrap">
         {message.content.split(" ").map((word, index) => {
-          if (sticketRegExp.test(message.content)) {
+          if (message.type === "sticker") {
             return (
               <img key={index} src={stiker[+word.slice(1, 3)].url} className="block m-auto w-96 h-96" alt="stiker" />
             );
@@ -45,10 +36,6 @@ export const Message: FC<Props> = ({ className, isMe, message }) => {
           );
         })}
       </p>
-
-      <p className={`text-[9px] lg:text-[11px] text-primary mt-2 font-light ${!isMe && "text-end"}`}>
-        {getFormattedTime(message.created_at)}
-      </p>
-    </div>
+    </MessageWrapper>
   );
 };

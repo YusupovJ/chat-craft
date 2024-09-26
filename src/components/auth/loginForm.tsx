@@ -16,6 +16,10 @@ export const LoginForm = () => {
   const { closeModal } = useModalStore();
   const form = useForm({
     resolver: yupResolver(loginSchema),
+    defaultValues: {
+      password: "",
+      username: "",
+    },
   });
   const { mutate: signIn } = useSignIn();
   const { setIsAuthenticated } = useAuthStore();

@@ -8,4 +8,8 @@ declare module "axios" {
     pagination: IPagination | null;
     status: number;
   }
+
+  export interface InternalAxiosRequestConfig {
+    isRetry?: boolean;
+  }
 }

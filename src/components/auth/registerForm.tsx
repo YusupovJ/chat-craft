@@ -20,6 +20,9 @@ export const RegisterForm = () => {
     resolver: yupResolver(registerSchema),
     defaultValues: {
       avatar: 0,
+      password: "",
+      username: "",
+      gender: "steve",
     },
   });
   const { mutate: signUp } = useSignUp();

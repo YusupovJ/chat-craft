@@ -1,14 +1,12 @@
 import { DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
+import { useSend } from "@/hooks/useSend";
 import { stiker } from "@/mock/stiker";
-import { FC } from "react";
 
-interface Props {
-  sendMessage: (sendMessage: string) => void;
-}
+export const StikerMenu = () => {
+  const { sendMessage } = useSend();
 
-export const StikerMenu: FC<Props> = ({ sendMessage }) => {
   const selectStiker = (stiker: number) => {
-    sendMessage("@" + (stiker - 1));
+    sendMessage("@" + (stiker - 1), "sticker");
   };
 
   return (

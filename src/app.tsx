@@ -10,7 +10,7 @@ import { ModalProvider } from "@/store/modalProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { refetchOnWindowFocus: false },
+    queries: { refetchOnWindowFocus: false, retry: false },
   },
 });
 

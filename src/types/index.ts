@@ -92,6 +92,7 @@ export interface IMessage {
   id: number;
   content: string;
   user: IMe;
+  type: TMessageType;
   chat: IChat;
   created_at: string;
   updated_at: string;
@@ -100,3 +101,5 @@ export interface IMessage {
 export interface ICreateChat {
   name: string;
 }
+
+export type TMessageType = "sticker" | "text" | "voice";

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { ChatInfo } from "../components/chat/chatInfo";
-import { MessageList } from "../components/chat/messageList";
+import { MessageList } from "../components/message/messageList";
 import { WriteMessage } from "../components/chat/writeMessage";
 import { Sidebar } from "../components/sidebar/sidebar";
 import { FC, useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { cn, isInDeep, scrollToBottom } from "@/lib/utils";
 import { useMessages } from "@/hooks/useMessage";
 import { useModalStore } from "@/store/modal";
 import { Button } from "@/components/ui/button";
-import { icons } from "lucide-react";
+import { ArrowBigLeft } from "lucide-react";
 
 interface Props {
   unselected?: boolean;
@@ -64,7 +64,7 @@ export const Chat: FC<Props> = ({ unselected }) => {
             className="w-20 ml-auto hidden lg:flex"
             onClick={() => setSizeSidebar(sizeSidebar ? false : true)}
           >
-            <icons.ArrowBigLeft className={cn(sizeSidebar ? "rotate-180" : "rotate-0", "transition-all")} />
+            <ArrowBigLeft className={cn(sizeSidebar ? "rotate-180" : "rotate-0", "transition-all")} />
           </Button>
           <ChatList size={sizeSidebar} className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
         </div>

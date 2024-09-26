@@ -7,10 +7,9 @@ import { Dispatch, FC, SetStateAction } from "react";
 
 interface Props {
   setContent: Dispatch<SetStateAction<string>>;
-  sendMessage: (sendMessage: string) => void;
 }
 
-export const StickerEmojiMenu: FC<Props> = ({ setContent, sendMessage }: any) => {
+export const StickerEmojiMenu: FC<Props> = ({ setContent }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +31,7 @@ export const StickerEmojiMenu: FC<Props> = ({ setContent, sendMessage }: any) =>
             <EmojiMenu setContent={setContent} />
           </TabsContent>
           <TabsContent value="sticker" className="h-[500px] max-w-[500px] overflow-auto">
-            <StikerMenu sendMessage={sendMessage} />
+            <StikerMenu />
           </TabsContent>
         </Tabs>
       </DropdownMenuContent>
