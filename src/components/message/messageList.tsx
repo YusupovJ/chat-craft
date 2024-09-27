@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { IMessage } from "@/types";
 import { useAuthStore } from "@/store/auth";
 import { Message } from "./message";
+import { MessageWrapper } from "./messageWrapper";
 
 interface Props {
   messages?: IMessage[];
@@ -26,7 +27,9 @@ export const MessageList: FC<Props> = ({ messages, className }) => {
             key={message.id}
           >
             <Avatars index={message.user.avatar} />
-            <Message isMe={isMe} message={message} />
+            <MessageWrapper message={message} isMe={isMe}>
+              <Message message={message} />
+            </MessageWrapper>
           </div>
         );
       })}

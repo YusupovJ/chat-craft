@@ -81,7 +81,7 @@ export const Recorder = () => {
 
       const averageAmplitude = Math.sqrt(sum / bufferLength);
 
-      const circleRadius = 12.5 + averageAmplitude * 1000;
+      const circleRadius = 15 + averageAmplitude * 350;
 
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
