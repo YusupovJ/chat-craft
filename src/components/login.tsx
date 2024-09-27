@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import Avatars from "./avatars";
+import { Avatars } from "./avatars";
 import { toast } from "sonner";
 import { useAuthStore } from "@/store/auth";
 import { cn, setLocalStorage } from "@/lib/utils";
@@ -10,8 +10,9 @@ import { useModalStore } from "@/store/modal";
 import { useSignIn, useSignUp } from "@/hooks/useAuth";
 import { onError } from "@/lib/onError";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { genders } from "@/mock/genders";
 
-function Login() {
+export const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(2);
@@ -42,7 +43,7 @@ function Login() {
 
   const handlerSignUp = async () => {
     if (name && password) {
-      const values = { username: name, password, avatar, gender };
+      const values = { username: name, password, avatar, gender: "asd" };
       signUp(values, {
         onSuccess: (data) => {
           setLocalStorage("accessToken", data.accessToken);
@@ -94,10 +95,9 @@ function Login() {
                   <SelectValue placeholder="Стив" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="man">Мужчина</SelectItem>
-                  <SelectItem value="girl">Женщина</SelectItem>
-                  <SelectItem value="steve">Стив</SelectItem>
-                  <SelectItem value="croissant">круассан</SelectItem>
+                  {Object.entries(genders).map(([key, value]) => (
+                    <SelectItem value={key}>{value}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -121,6 +121,4 @@ function Login() {
       </ModalFooter>
     </>
   );
-}
-
-export default Login;
+};

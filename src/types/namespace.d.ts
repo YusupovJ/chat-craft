@@ -8,10 +8,8 @@ declare module "axios" {
     pagination: IPagination | null;
     status: number;
   }
-}
 
-declare module "react-query" {
-  interface UseQueryResult<TData> {
-    data: TData;
+  export interface InternalAxiosRequestConfig {
+    isRetry?: boolean;
   }
 }

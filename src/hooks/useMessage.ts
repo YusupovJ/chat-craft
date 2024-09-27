@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 export const useMessages = (page: number, id?: string) => {
   const [totalPages, setTotalPages] = useState(1);
 
-  const query = useQuery<IMessage[], TError>(
+  return useQuery<IMessage[], TError>(
     [MESSAGES_KEY, page, id],
     async () => {
       const { data, pagination } = await fetchMessages(page, id);
@@ -16,6 +16,4 @@ export const useMessages = (page: number, id?: string) => {
     },
     { enabled: page <= totalPages }
   );
-
-  return query;
 };

@@ -1,23 +1,23 @@
 import { useParams } from "react-router-dom";
-import ChatInfo from "../components/chat/chatInfo";
-import MessageList from "../components/chat/messageList";
-import WriteMessage from "../components/chat/writeMessage";
+import { ChatInfo } from "../components/chat/chatInfo";
+import { MessageList } from "../components/message/messageList";
+import { WriteMessage } from "../components/chat/writeMessage";
+import { Sidebar } from "../components/sidebar/sidebar";
 import { FC, useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
-import ChatList from "../components/chat/chatList";
-import { cn, isAtBottom, scrollToBottom } from "@/lib/utils";
-import Sidebar from "../components/sidebar/sidebar";
+import { ChatList } from "../components/chat/chatList";
+import { cn, isInDeep, scrollToBottom } from "@/lib/utils";
 import { useMessages } from "@/hooks/useMessage";
 import { useModalStore } from "@/store/modal";
 import { Button } from "@/components/ui/button";
-import { icons } from "lucide-react";
+import { ArrowBigLeft } from "lucide-react";
 
 interface Props {
   unselected?: boolean;
 }
 
-const Chat: FC<Props> = ({ unselected }) => {
+export const Chat: FC<Props> = ({ unselected }) => {
   const [sizeSidebar, setSizeSidebar] = useState<boolean>(false);
   const { id } = useParams();
   const { openModal, openModals } = useModalStore();
@@ -38,7 +38,7 @@ const Chat: FC<Props> = ({ unselected }) => {
 
   useEffect(() => {
     const isMe = newMessages[newMessages.length - 1]?.user?.id === user?.id;
-    if (isMe || isAtBottom()) scrollToBottom();
+    if (isMe || isInDeep()) scrollToBottom();
   }, [newMessages]);
 
   const onChatChange = () => {
@@ -62,14 +62,14 @@ const Chat: FC<Props> = ({ unselected }) => {
           <Button
             variant="ghost"
             className="w-20 ml-auto hidden lg:flex"
-            onClick={() => setSizeSidebar?.(sizeSidebar ? false : true)}
+            onClick={() => setSizeSidebar(sizeSidebar ? false : true)}
           >
-            <icons.ArrowBigLeft className={cn(sizeSidebar ? "rotate-180" : "rotate-0", "transition-all")} />
+            <ArrowBigLeft className={cn(sizeSidebar ? "rotate-180" : "rotate-0", "transition-all")} />
           </Button>
           <ChatList size={sizeSidebar} className="grow" lastNewMessage={newMessages[newMessages.length - 1]} />
         </div>
       </aside>
-      <main className={cn("bg-muted  relative grow", unselected && "flex items-center justify-center")}>
+      <main className={cn("bg-muted relative grow", unselected && "flex items-center justify-center min-h-[100dvh]")}>
         {!unselected ? (
           <>
             <ChatInfo />
@@ -86,5 +86,3 @@ const Chat: FC<Props> = ({ unselected }) => {
     </div>
   );
 };
-
-export default Chat;

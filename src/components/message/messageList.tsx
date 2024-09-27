@@ -1,9 +1,10 @@
 import { Dispatch, FC, SetStateAction } from "react";
-import Avatars from "../avatars";
+import { Avatars } from "../avatars";
 import { cn } from "@/lib/utils";
-import Message from "./message";
 import { IMessage } from "@/types";
 import { useAuthStore } from "@/store/auth";
+import { Message } from "./message";
+import { MessageWrapper } from "./messageWrapper";
 
 interface Props {
   messages?: IMessage[];
@@ -11,7 +12,7 @@ interface Props {
   setPage?: Dispatch<SetStateAction<number>>;
 }
 
-const MessageList: FC<Props> = ({ messages, className }) => {
+export const MessageList: FC<Props> = ({ messages, className }) => {
   const { user } = useAuthStore();
 
   return (
@@ -26,12 +27,12 @@ const MessageList: FC<Props> = ({ messages, className }) => {
             key={message.id}
           >
             <Avatars index={message.user.avatar} />
-            <Message isMe={isMe} message={message} />
+            <MessageWrapper message={message} isMe={isMe}>
+              <Message message={message} />
+            </MessageWrapper>
           </div>
         );
       })}
     </div>
   );
 };
-
-export default MessageList;

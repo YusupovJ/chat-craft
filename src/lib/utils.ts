@@ -30,7 +30,7 @@ export const clearLocalStorage = (): void => {
 
 /* Date */
 
-export const localeDate = (date: string) => {
+export const getFormattedTime = (date: string) => {
   const hours = new Date(date).getHours();
   const minute = new Date(date).getMinutes().toString().padStart(2, "0");
   return `${hours}:${minute}`;
@@ -86,20 +86,18 @@ export const scrollToBottom = (behavior?: "smooth" | "instant") => {
   });
 };
 
-export const isAtBottom = () => {
+export const isInDeep = () => {
   const scrollTop = window.scrollY;
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
 
-  return scrollTop + windowHeight >= documentHeight;
-};
+  const delta = documentHeight - scrollTop - windowHeight;
 
-export const scrollbarSize = () => {
-  return window.innerWidth - document.body.clientWidth;
+  return delta < 500;
 };
 
 // formatter content
-export const formatContent = (content: string, limit: number = 30) => {
+export const cutTextOnLimit = (content: string, limit: number = 30) => {
   if (content.length > limit) {
     return content.slice(0, limit + 1).trim() + "...";
   }

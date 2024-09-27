@@ -1,15 +1,14 @@
-import Container from "../components/container";
 import alex from "../assets/alex.png";
 import { Button } from "../components/ui/button";
 import bgImage from "../assets/bg-main.jpg";
-import Headers from "../components/headers";
+import { Headers } from "../components/headers";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth";
 import { GitPullRequestCreateArrow } from "lucide-react";
 import { useModalStore } from "@/store/modal";
 
-const Home = () => {
+export const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuthStore();
   const { openModal } = useModalStore();
@@ -30,7 +29,7 @@ const Home = () => {
       />
       <Headers />
       <main className="flex items-center mt-24">
-        <Container className="flex-col lg:flex-row flex items-center justify-center md:justify-between gap-5">
+        <div className="flex-col container lg:flex-row flex items-center justify-center md:justify-between gap-5">
           <div className="max-w-[550px] bg-[rgba(0,0,0,0.2)] backdrop-blur-lg p-5 rounded-lg">
             <h1 className="font-bold text-xl md:text-3xl text-gray-200">
               Добро пожаловать в место, где встречаются люди со всего мира!
@@ -54,10 +53,8 @@ const Home = () => {
               alt="alex"
             />
           </div>
-        </Container>
+        </div>
       </main>
     </>
   );
 };
-
-export default Home;

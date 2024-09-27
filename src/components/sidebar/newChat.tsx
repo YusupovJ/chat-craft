@@ -8,7 +8,7 @@ import { useModalStore } from "@/store/modal";
 import { useQueryClient } from "react-query";
 import { CHAT_KEY } from "@/lib/constants";
 
-const NewChat = () => {
+export const NewChat = () => {
   const [name, setName] = useState<string>("");
   const { closeModal } = useModalStore();
   const { mutate } = useChatCreate();
@@ -46,5 +46,3 @@ const NewChat = () => {
     </>
   );
 };
-
-export default NewChat;

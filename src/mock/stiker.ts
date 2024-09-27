@@ -1,9 +1,9 @@
-export const sticketRegExp = /^@[0-9]$|^@[0-1][0-9]$|^@[1-2][0-7]$/;
+export const sticketRegExp = /^@[0-9]$|^@[0-1][0-9]$|^@[1-2][0-9]|^@3[0-6]$/;
 
 export const stiker = [
   {
     id: 1,
-    url: "https://www.icegif.com/wp-content/uploads/icegif-1617.gif",
+    url: "https://media1.tenor.com/m/O_6K2m6DS28AAAAd/cursed.gif",
   },
   {
     id: 2,
@@ -43,7 +43,7 @@ export const stiker = [
   },
   {
     id: 23,
-    url: "https://www.icegif.com/wp-content/uploads/2022/01/icegif-960.gif",
+    url: "https://media1.tenor.com/m/C2p5yeCztDAAAAAd/fnaf-freddy.gif",
   },
   {
     id: 24,
@@ -60,5 +60,41 @@ export const stiker = [
   {
     id: 27,
     url: "https://media1.giphy.com/media/Mab0VG2Rqarpbbku33/200w.gif?cid=6c09b9522ywetla8khrdck7ke8f3r4tn8fercb3x3pdhrje6&ep=v1_gifs_search&rid=200w.gif&ct=g",
+  },
+  {
+    id: 28,
+    url: "https://media1.tenor.com/m/rgJleMzUa8MAAAAC/bailes.gif",
+  },
+  {
+    id: 29,
+    url: "https://media1.tenor.com/m/mQKYw9QrdkYAAAAC/skeleton-meme.gif",
+  },
+  {
+    id: 30,
+    url: "https://media1.tenor.com/m/Bj_L0tSjhoAAAAAd/meme.gif",
+  },
+  {
+    id: 31,
+    url: "https://media1.tenor.com/m/XnKB_aFAzJMAAAAC/alumae-alumaeyy.gif",
+  },
+  {
+    id: 32,
+    url: "https://media.tenor.com/I7__TM6dAwoAAAAi/emoji-shock.gif",
+  },
+  {
+    id: 33,
+    url: "https://media.tenor.com/IWBRvG0FTToAAAAi/spongebob-meme-countryballs.gif",
+  },
+  {
+    id: 34,
+    url: "https://media1.tenor.com/m/d4sPgSJml54AAAAC/opihomm-funny.gif",
+  },
+  {
+    id: 35,
+    url: "https://media1.tenor.com/m/clOLAfxSJqIAAAAd/bro-officer-earl.gif",
+  },
+  {
+    id: 36,
+    url: "https://media1.tenor.com/m/Vx_ftW__--EAAAAd/sackboy-sack-boy.gif",
   },
 ];

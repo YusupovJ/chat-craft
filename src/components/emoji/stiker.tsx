@@ -1,13 +1,12 @@
 import { DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
-import { stiker } from "@/lib/stiker";
+import { useSend } from "@/hooks/useSend";
+import { stiker } from "@/mock/stiker";
 
-interface IEmojiProps {
-  sendMessage: (sendMessage: string) => void;
-}
+export const StikerMenu = () => {
+  const { sendMessage } = useSend();
 
-export function StikerMenu({ sendMessage }: IEmojiProps) {
   const selectStiker = (stiker: number) => {
-    sendMessage("@" + (stiker - 1));
+    sendMessage("@" + (stiker - 1), "sticker");
   };
 
   return (
@@ -19,9 +18,9 @@ export function StikerMenu({ sendMessage }: IEmojiProps) {
           className="hover:bg-gray-100 p-0 py-3 px-2 cursor-pointer flex justify-center overflow-hidden"
           value="top"
         >
-          <img src={stiker.url} className="max-w-28 lg:max-w-40 max-h-[150px] h-full" alt="stiker" />
+          <img src={stiker.url} className="max-w-28 lg:max-w-40 max-h-[150px] h-full w-full" alt="stiker" />
         </DropdownMenuRadioItem>
       ))}
     </DropdownMenuRadioGroup>
   );
-}
+};
