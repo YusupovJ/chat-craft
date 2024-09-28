@@ -7,7 +7,8 @@ import { useChatCreate } from "@/hooks/useChat";
 import { useModalStore } from "@/store/modal";
 import { useQueryClient } from "react-query";
 import { CHAT_KEY } from "@/lib/constants";
-import { FileUpload } from "@/lib/fileUpload";
+import { FileUpload } from "@/components/fileUpload";
+import { onError } from "@/lib/onError";
 
 export const NewChat = () => {
   const [name, setName] = useState<string>("");
@@ -22,17 +23,14 @@ export const NewChat = () => {
       {
         onSuccess: () => {
           toast.success("Группа успешно создана");
-          closeModal("newchat");
           queryClient.refetchQueries(CHAT_KEY);
+          closeModal("newchat");
           setImg("");
           setName("");
         },
-        onError: () => {
-          toast.error("вы не загрузили файл или не задали имя");
-        },
+        onError,
       }
     );
-    console.log(img);
   };
 
   return (
@@ -43,7 +41,7 @@ export const NewChat = () => {
 
       <ModalContent className="flex flex-col gap-6">
         <Input placeholder="Имя группы" onChange={(e) => setName(e.target.value)} value={name} />
-        <FileUpload uploadedFile={setImg} />
+        <FileUpload setUrl={setImg} />
       </ModalContent>
 
       <ModalFooter>

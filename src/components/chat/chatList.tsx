@@ -1,5 +1,4 @@
 import { useChatList } from "@/hooks/useChat";
-import { sticketRegExp } from "@/mock/stiker";
 import { cn, cutTextOnLimit } from "@/lib/utils";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
@@ -43,13 +42,15 @@ export const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
               className={cn("min-w-16 w-16 h-16 rounded-md object-cover transition-all", size && "min-w-20")}
               alt="chat icon"
             />
-            {lastMessage && !size && (
+            {!size && (
               <div>
                 <p className="font-semibold mb-1">{cutTextOnLimit(chat.name, size ? 10 : 20)}</p>
-                <p className="text-muted-foreground text-xs mt-2 flex item-center">
-                  {isMe ? "Вы" : lastMessage?.user?.username}:{" "}
-                  {!sticketRegExp.test(lastMessage.content) && cutTextOnLimit(lastMessage.content, 15)}
-                </p>
+                {lastMessage && (
+                  <p className="text-muted-foreground text-xs mt-2 flex item-center">
+                    {isMe ? "Вы" : lastMessage?.user?.username}:{" "}
+                    {lastMessage.type === "sticker" ? "Стикер" : cutTextOnLimit(lastMessage.content, 15)}
+                  </p>
+                )}
               </div>
             )}
           </Link>
