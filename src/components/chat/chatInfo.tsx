@@ -25,7 +25,7 @@ export const ChatInfo: FC<Props> = () => {
   };
 
   return (
-    <div className="sticky flex bg-primary justify-between items-center py-4 top-0 left-0 w-full px-4 shadow-md shadow-muted scroll-margin">
+    <div className="sticky flex bg-primary justify-between items-center py-4 top-0 left-0 w-full px-4 shadow-md shadow-muted scroll-margin z-10">
       <Button variant="outline" className="font-bold flex gap-2 p-2 lg:hidden" onClick={leave}>
         <ArrowBigLeft size="20" />
       </Button>

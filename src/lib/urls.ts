@@ -18,4 +18,7 @@ export const urls = {
   message: {
     getAll: (chatId?: string, page?: number) => `/message?chatId=${chatId}&limit=${MESSAGE_LIMIT}&page=${page || 1}`,
   },
+  upload: {
+    add: "/upload",
+  },
 };

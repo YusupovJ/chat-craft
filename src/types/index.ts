@@ -83,6 +83,7 @@ export type IGenders = { [key in TGenders]: string };
 export interface IChat {
   id: string;
   name: string;
+  img: string;
   messages: IMessage[];
   created_at: string;
   updated_at: string;
@@ -100,6 +101,15 @@ export interface IMessage {
 
 export interface ICreateChat {
   name: string;
+  img: string;
+}
+
+export interface IUploadFile {
+  url: string;
+  filename: string;
+  size: number;
+  originalname: string;
+  mimetype: string;
 }
 
 export type TMessageType = "sticker" | "text" | "voice";

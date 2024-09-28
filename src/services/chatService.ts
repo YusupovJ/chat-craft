@@ -12,7 +12,7 @@ export const fetchChatList = async () => {
   return data;
 };
 
-export const fetchChatCreate = async ({ name }: { name: string }) => {
-  const { data } = await api.post<IChat>(urls.chat.create, { name });
+export const fetchChatCreate = async ({ name, img }: { name: string; img: string }) => {
+  const { data } = await api.post<IChat>(urls.chat.create, { name, img });
   return data;
 };

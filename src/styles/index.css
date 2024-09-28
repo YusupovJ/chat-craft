@@ -62,6 +62,10 @@
   }
 }
 
+.audio-player button {
+  color: rgb(22, 163, 74);
+}
+
 @layer base {
   * {
     @apply border-border;
