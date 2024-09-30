@@ -10,7 +10,7 @@ import { CHAT_KEY } from "@/lib/constants";
 import { FileUpload } from "@/components/fileUpload";
 import { onError } from "@/lib/onError";
 
-export const NewChat = () => {
+const NewChat = () => {
   const [name, setName] = useState<string>("");
   const [img, setImg] = useState<string>("");
   const { closeModal } = useModalStore();
@@ -50,3 +50,5 @@ export const NewChat = () => {
     </>
   );
 };
+
+export default NewChat;

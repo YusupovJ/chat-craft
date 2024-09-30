@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { ModalContent, ModalHeader } from "../ui/modal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { LoginForm } from "./loginForm";
-import { RegisterForm } from "./registerForm";
+import { LoginForm } from "../auth/loginForm";
+import { RegisterForm } from "../auth/registerForm";
 
-export const Auth = () => {
+const Auth = () => {
   const [value, setValue] = useState("login");
 
   return (
@@ -31,3 +31,5 @@ export const Auth = () => {
     </Tabs>
   );
 };
+
+export default Auth;

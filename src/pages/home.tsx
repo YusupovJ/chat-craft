@@ -8,7 +8,7 @@ import { useAuthStore } from "@/store/auth";
 import { GitPullRequestCreateArrow } from "lucide-react";
 import { useModalStore } from "@/store/modal";
 
-export const Home = () => {
+const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuthStore();
   const { openModal } = useModalStore();
@@ -58,3 +58,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

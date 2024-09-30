@@ -4,7 +4,7 @@ import Logo from "@/assets/logo.svg?react";
 import { Settings, User, MessageCirclePlus } from "lucide-react";
 import { useModalStore } from "@/store/modal";
 import { Tooltip } from "@/components/ui/tooltip";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 
 interface Props {
   className?: string;
@@ -21,18 +21,18 @@ export const Sidebar: FC<Props> = ({ className }) => {
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <Tooltip message={"Создать чат"}>
-          <Button variant="ghost" onClick={() => openModal("newchat")}>
+        <Tooltip message="Создать чат">
+          <Button variant="ghost" aria-label="Создать чат" onClick={() => openModal("newchat")}>
             <MessageCirclePlus stroke="inherit" size="32" />
           </Button>
         </Tooltip>
-        <Tooltip message={"Информация о пользователе"}>
-          <Button variant="ghost" onClick={() => openModal("userinfo")}>
+        <Tooltip message="Информация о пользователе">
+          <Button variant="ghost" aria-label="Информация о пользователе" onClick={() => openModal("userinfo")}>
             <User stroke="inherit" size="32" />
           </Button>
         </Tooltip>
-        <Tooltip message={"Настройки"}>
-          <Button variant="ghost" onClick={() => openModal("settings")}>
+        <Tooltip message="Настройки">
+          <Button variant="ghost" aria-label="Настройки" onClick={() => openModal("settings")}>
             <Settings stroke="inherit" size="32" />
           </Button>
         </Tooltip>

@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Chat } from "./pages/chat";
-import { Home } from "./pages/home";
-import { NotFound } from "./pages/notFound";
 import { Toaster } from "./components/ui/sonner";
 import { AuthProvider } from "@/store/authProvider";
 import { ThemeProvider } from "@/store/themeProvider";
 import { ModalProvider } from "@/store/modalProvider";
+import { routes } from "./mock/routes";
+import { Suspense } from "react";
+import { Loader } from "./components/loader";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,10 +23,13 @@ export const App = () => {
           <ModalProvider>
             <AuthProvider>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/chat/:id" element={<Chat />} />
-                <Route path="/chat" element={<Chat unselected />} />
-                <Route path="*" element={<NotFound />} />
+                {routes.map((route) => (
+                  <Route
+                    key={route.id}
+                    path={route.path}
+                    element={<Suspense fallback={<Loader />}>{route.component}</Suspense>}
+                  />
+                ))}
               </Routes>
             </AuthProvider>
           </ModalProvider>

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { delLocalStorage } from "@/lib/utils";
 import { useModalStore } from "@/store/modal";
 
-export const UserInfo = () => {
+const UserInfo = () => {
   const { user, setIsAuthenticated, setUser } = useAuthStore();
   const { mutate: logout } = useLogout();
   const { closeModal } = useModalStore();
@@ -56,3 +56,5 @@ export const UserInfo = () => {
     </>
   );
 };
+
+export default UserInfo;

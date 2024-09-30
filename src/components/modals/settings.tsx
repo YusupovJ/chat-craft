@@ -3,7 +3,7 @@ import { ModalContent, ModalHeader } from "../ui/modal";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 
-export const Settings = () => {
+const Settings = () => {
   const { theme, setTheme } = useThemeStore();
 
   const toggleTheme = () => {
@@ -22,3 +22,5 @@ export const Settings = () => {
     </>
   );
 };
+
+export default Settings;

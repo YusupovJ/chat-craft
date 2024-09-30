@@ -116,6 +116,7 @@ export const Recorder = () => {
   return (
     <div className="flex flex-col items-center relative overflow-visible z-10">
       <Button
+        aria-label="Отправить голосовое сообщение"
         onMouseDown={startRecording}
         className={cn("rounded-full bg-primary p-2 relative z-20 transition-transform", isRecording && "scale-[0.8]")}
       >
