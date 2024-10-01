@@ -4,13 +4,14 @@ import { fileUpload } from "@/services/fileService";
 import { IUploadFile } from "@/types";
 import { AxiosError } from "axios";
 import { Trash } from "lucide-react";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface PropsFile {
   setUrl: Dispatch<SetStateAction<string>>;
+  clear?: boolean;
 }
 
-export const FileUpload = ({ setUrl }: PropsFile) => {
+export const FileUpload = ({ setUrl, clear = false }: PropsFile) => {
   const [uploadFile, setUploadFile] = useState<IUploadFile | null>(null);
 
   async function handleFile(event: ChangeEvent<HTMLInputElement>) {
@@ -28,6 +29,11 @@ export const FileUpload = ({ setUrl }: PropsFile) => {
       }
     }
   }
+  useEffect(() => {
+    if (!clear) {
+      setUploadFile(null);
+    }
+  }, [clear]);
 
   if (uploadFile) {
     return (

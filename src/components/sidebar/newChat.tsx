@@ -41,7 +41,7 @@ export const NewChat = () => {
 
       <ModalContent className="flex flex-col gap-6">
         <Input placeholder="Имя группы" onChange={(e) => setName(e.target.value)} value={name} />
-        <FileUpload setUrl={setImg} />
+        <FileUpload setUrl={setImg} clear={img !== ""} />
       </ModalContent>
 
       <ModalFooter>

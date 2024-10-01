@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { Button } from "../ui/button";
-import { ArrowBigLeft, Share2 } from "lucide-react";
+import { ArrowBigLeft, MoveRightIcon, Share2 } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { cutTextOnLimit, shareLink } from "@/lib/utils";
 import { useChatInfo } from "@/hooks/useChat";
@@ -24,6 +24,10 @@ export const ChatInfo: FC<Props> = () => {
     navigate("/chat");
   };
 
+  const ExitGroup = () => {
+    console.log("dya");
+  };
+
   return (
     <div className="sticky flex bg-primary justify-between items-center py-4 top-0 left-0 w-full px-4 shadow-md shadow-muted scroll-margin z-10">
       <Button variant="outline" className="font-bold flex gap-2 p-2 lg:hidden" onClick={leave}>
@@ -33,6 +37,9 @@ export const ChatInfo: FC<Props> = () => {
       <div className="flex gap-4">
         <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={shareLink}>
           <p className="hidden lg:block">Пригласить</p> <Share2 size="20" />
+        </Button>
+        <Button variant="outline" className="font-bold flex gap-2 p-2" onClick={ExitGroup}>
+          <p className="hidden lg:block">Покинуть группу</p> <MoveRightIcon size="20" />
         </Button>
       </div>
     </div>

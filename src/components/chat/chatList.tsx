@@ -23,7 +23,7 @@ export const ChatList: FC<Props> = ({ size, lastNewMessage, className }) => {
   }
 
   return (
-    <div className={cn("flex flex-col", className, "overflow-auto")}>
+    <div className={cn("flex flex-col overflow-auto", className)}>
       {chatList.map((chat) => {
         const lastMessage = lastNewMessage?.chat.id === chat.id ? lastNewMessage : chat.messages[0];
         const isMe = user?.id === lastMessage?.user?.id;
