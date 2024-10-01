@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { ChatInfo } from "../components/chat/chatInfo";
 import { MessageList } from "../components/message/messageList";
 import { WriteMessage } from "../components/chat/writeMessage";
-import { Sidebar } from "../components/sidebar/sidebar";
 import { FC, useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
@@ -12,12 +11,13 @@ import { useMessages } from "@/hooks/useMessage";
 import { useModalStore } from "@/store/modal";
 import { Button } from "@/components/ui/button";
 import { ArrowBigLeft } from "lucide-react";
+import { Sidebar } from "@/components/sidebar";
 
 interface Props {
   unselected?: boolean;
 }
 
-export const Chat: FC<Props> = ({ unselected }) => {
+const Chat: FC<Props> = ({ unselected }) => {
   const [sizeSidebar, setSizeSidebar] = useState<boolean>(false);
   const { id } = useParams();
   const { openModal, openModals } = useModalStore();
@@ -61,6 +61,7 @@ export const Chat: FC<Props> = ({ unselected }) => {
         <div className="flex flex-col w-full">
           <Button
             variant="ghost"
+            aria-label="Скрыть/раскрыть боковую панель"
             className="w-20 ml-auto hidden lg:flex"
             onClick={() => setSizeSidebar(sizeSidebar ? false : true)}
           >
@@ -86,3 +87,5 @@ export const Chat: FC<Props> = ({ unselected }) => {
     </div>
   );
 };
+
+export default Chat;

@@ -5,7 +5,7 @@ import { TModal } from "@/types";
 import { FC } from "react";
 import { createPortal } from "react-dom";
 
-interface ModalProps {
+export interface ModalProps {
   name: TModal;
   children?: React.ReactNode;
   closeOnOutsideClick?: boolean;

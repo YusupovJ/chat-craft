@@ -1,6 +1,8 @@
+import { ModalProps } from "@/components/ui/modal";
 import { loginSchema } from "@/validations/loginSchema";
 import { registerSchema } from "@/validations/registerSchema";
 import { AxiosError } from "axios";
+import { ReactNode } from "react";
 import { InferType } from "yup";
 
 /* Base types ------------ */
@@ -26,6 +28,12 @@ export interface IApiReponse<T> {
   date: string;
   pagination: IPagination | null;
   status: number;
+}
+
+export interface IRoutes {
+  id: number;
+  path: string;
+  component: ReactNode;
 }
 
 /* Auth -------------- */
@@ -74,6 +82,12 @@ export interface IModalStore {
 
 export type TModal = "auth" | "newchat" | "settings" | "userinfo" | "logout";
 export type IModal = { [key in TModal]?: boolean };
+
+export interface IModalList {
+  id: number;
+  component: ReactNode;
+  props: ModalProps;
+}
 
 /* --------------------- */
 

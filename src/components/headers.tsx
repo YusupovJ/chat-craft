@@ -15,7 +15,12 @@ export const Headers = () => {
           <h1 className="font-bold text-muted text-[14px] lg:text-[18px]">ChatCraft</h1>
         </Link>
 
-        <Button variant="outline" onClick={() => openModal("auth")} className="flex py-0 px-2 gap-2">
+        <Button
+          variant="outline"
+          aria-label="Войти в аккаунт"
+          onClick={() => openModal("auth")}
+          className="flex py-0 px-2 gap-2"
+        >
           <LogInIcon />
           <span className="hidden lg:block">Войти</span>
         </Button>
