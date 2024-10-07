@@ -33,5 +33,14 @@ export const useSend = () => {
     });
   };
 
-  return { content, setContent, ref, sendMessage, sendVoice };
+  const sendImage = (content: string | string[]) => {
+    socket.emit("image", {
+      chatId: id,
+      userId: userId,
+      type: "image",
+      content: Array.isArray(content) ? content : [content],
+    });
+  };
+
+  return { content, setContent, ref, sendMessage, sendVoice, sendImage };
 };

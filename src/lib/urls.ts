@@ -20,5 +20,6 @@ export const urls = {
   },
   upload: {
     add: "/upload",
+    multi: "/upload/multiple",
   },
 };

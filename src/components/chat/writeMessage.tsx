@@ -1,7 +1,7 @@
-import { Send } from "lucide-react";
+import { Paperclip, Send } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useAuthStore } from "@/store/auth";
 import { IMessage } from "@/types";
 import { StickerEmojiMenu } from "../emoji";
@@ -32,6 +32,11 @@ export const WriteMessage: FC<IProps> = ({ setNewMessages }) => {
     };
   }, [socket, id, userId]);
 
+  const onFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    console.log(files);
+  };
+
   return (
     <div className="sticky flex bg-background py-2 bottom-0 left-0 w-full px-2 space-x-2">
       <Recorder />
@@ -51,6 +56,19 @@ export const WriteMessage: FC<IProps> = ({ setNewMessages }) => {
         value={content}
       />
       <StickerEmojiMenu setContent={setContent} />
+      <Button variant="outline" className="p-0 border-2">
+        <label htmlFor="select-files" className="p-1">
+          <Paperclip />
+        </label>
+      </Button>
+      <input
+        id="select-files"
+        type="file"
+        accept="image/*"
+        onChange={onFileSelect}
+        multiple
+        className="fixed top-0 left-0 invisible w-0 h-0 opacity-0"
+      />
       <Button
         className="rounded-none flex gap-2 items-center"
         onClick={() => sendMessage(content)}
