@@ -126,4 +126,4 @@ export interface IUploadFile {
   mimetype: string;
 }
 
-export type TMessageType = "sticker" | "text" | "voice";
+export type TMessageType = "sticker" | "text" | "voice" | "image";

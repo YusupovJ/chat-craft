@@ -18,6 +18,16 @@ export const Message: FC<Props> = ({ message }) => {
     return <AudioPlayer className="audio-player border-none w-[250px] sm:w-[400px] bg-accent" src={message.content} />;
   }
 
+  if (message.type === "image") {
+    return (
+      <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,1fr))]">
+        {message.content.split(" ").map((url) => (
+          <img src={url} alt={url} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <p className="gap-2 flex flex-wrap">
       {message.content.split(" ").map((word, index) => {

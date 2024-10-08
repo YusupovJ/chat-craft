@@ -17,7 +17,7 @@ interface IProps {
 export const WriteMessage: FC<IProps> = ({ setNewMessages }) => {
   const { id } = useParams();
   const userId = useAuthStore((state) => state.user?.id);
-  const { content, ref, sendMessage, setContent } = useSend();
+  const { content, ref, sendMessage, setContent, sendImage } = useSend();
 
   useEffect(() => {
     socket.emit("joinRoom", { chatId: id, userId });
@@ -33,8 +33,8 @@ export const WriteMessage: FC<IProps> = ({ setNewMessages }) => {
   }, [socket, id, userId]);
 
   const onFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    console.log(files);
+    const images = e.target.files!;
+    sendImage(images);
   };
 
   return (
